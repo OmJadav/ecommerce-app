@@ -8,20 +8,23 @@ import Category from "./components/Category/Category";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import Newsletter from "./components/Footer/Newsletter/Newsletter";
 import AppContext from './utils/context';
-
+import { Loginpage } from './components/auth/Loginpage'
+import { Registerpage } from './components/auth/Registerpage'
 
 function App() {
   return (
     <BrowserRouter>
       <AppContext>
-        <Header />
+        {/* <Header /> */}
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/category/:id' element={<Category />} />
-          <Route path='/product/:id' element={<SingleProduct />} />
+          <Route path='/' element={<><Header /><Home /><Newsletter /><Footer /></>} />
+          <Route path='/category/:id' element={<><Header /><Category /><Newsletter /><Footer /></>} />
+          <Route path='/product/:id' element={<><Header /><SingleProduct /><Newsletter /><Footer /></>} />
+          <Route path='/login' element={<Loginpage />} />
+          <Route path='/register' element={<Registerpage />} />
         </Routes>
-        <Newsletter />
-        <Footer />
+        {/* <Newsletter /> */}
+        {/* <Footer /> */}
       </AppContext>
     </BrowserRouter>
   );
