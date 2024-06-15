@@ -9,7 +9,9 @@
     ],
     "price": 1499,
     "description": "Noise Pulse 2 Max 1.85\" Display, Bluetooth Calling Smart Watch, 10 Days Battery, 550 NITS Brightness, Smart DND, 100 Sports Modes, Smartwatch for Men and Women (Jet Black)",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Noise Explorer Kids Smart Watch",
@@ -21,7 +23,9 @@
     ],
     "price": 5499,
     "description": "Noise Explorer Kids Smart Watch with GPS Tracking, 2-Way Video & Voice Calling, Safe Zone Alert, School Mode, SOS, Habit Formation, App for Parents (Phantom Blue)",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Noise Origin Smart Watch",
@@ -34,7 +38,9 @@
     ],
     "price": 6499,
     "description": "Noise Origin Smart Watch Smoothest UI Experience (New Nebula UI) & EN 1 Processor, 1.46” ApexVision AMOLED Display, Stainless Steel, Contour-Cut Design, Fitness Age, Fast Charging (Midnight Black)",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Amazfit Balance - AI Smartwatch",
@@ -47,7 +53,9 @@
     ],
     "price": 24999,
     "description": "Amazfit Balance - AI Smartwatch, Fitness Coach, Sleep & Health Tracker with Body Composition, 1.5\" AMOLED Display, BT Calling, Alexa Built-in, Dual-Band GPS, 14-Day Battery (Lagoon) (Special Edition)",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple Watch Series 9",
@@ -60,7 +68,9 @@
     ],
     "price": 44900,
     "description": "Apple Watch Series 9 [GPS 45mm] Smartwatch with Midnight Aluminum Case with Midnight Sport Band M/L. Fitness Tracker, Blood Oxygen & ECG Apps, Always-On Retina Display, Water Resistant",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple Watch SE (2nd Gen, 2023)",
@@ -73,7 +83,9 @@
     ],
     "price": 27999,
     "description": "Apple Watch SE (2nd Gen, 2023) [GPS 40mm] Smartwatch with Midnight Aluminum Case with Midnight Sport Band S/M. Fitness & Sleep Tracker, Crash Detection, Heart Rate Monitor, Retina Display",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple Watch Ultra ",
@@ -86,7 +98,9 @@
     ],
     "price": 63990,
     "description": "Apple Watch Ultra [GPS + Cellular 49 mm] smart watch w/Rugged Titanium Case & Black/Grey Trail Loop - M/L Fitness Tracker, Precision GPS, Action Button, Extra-Long BatteryLife, Brighter Retina Display",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple Watch Ultra 2",
@@ -100,7 +114,9 @@
     ],
     "price": 89900,
     "description": "Apple Watch Ultra 2 [GPS + Cellular 49mm] Smartwatch with Rugged Titanium Case & Orange Ocean Band One Size. Fitness Tracker,Precision GPS,Action Button,Extra-Long Battery Life,Bright Retina Display",
-    "category": "watches"
+    "category": "watches",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple AirPods",
@@ -112,7 +128,9 @@
     ],
     "price": 19100,
     "description": "Apple AirPods (3rd Generation) with Lightning Charging Case spatial audio with dynamic head tracking places sound all around you Adaptive EQ automatically tunes music to your ears",
-    "category": "earbuds"
+    "category": "earbuds",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "boAt Stone 352",
@@ -124,7 +142,9 @@
     ],
     "price": 1599,
     "description": "boAt Stone 352 Bluetooth Speaker with 10W RMS Stereo Sound, IPX7 Water Resistance, TWS Feature, Up to 12H Total Playtime, Multi-Compatibility Modes and Type-C Charging(Vibing Blue)",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "boAt Partypal 50",
@@ -138,7 +158,9 @@
     ],
     "price": 3999,
     "description": "boAt Partypal 50(Bluetooth) 20W RMS Stereo Sound, RGB LEDs , Wireless, Auxiliary,4.5 Hrs Playback, USB, Fm Speaker - Knight Black",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "OnePlus Nord Buds 2r",
@@ -151,7 +173,9 @@
     ],
     "price": 1999,
     "description": "OnePlus Nord Buds 2r True Wireless in Ear Earbuds with Mic, 12.4mm Drivers, Playback:Upto 38hr case,4-Mic Design, IP55 Rating [Deep Grey]",
-    "category": "earbuds"
+    "category": "earbuds",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "realme Buds T300",
@@ -165,7 +189,9 @@
     ],
     "price": 2199,
     "description": "realme Buds T300 TWS Earbuds with 40H Play time,30dB ANC, 360° Spatial Audio with Dolby Atmos, 12.4 mm Dynamic Bass Boost Driver, IP55 Water & Dust Resistant, BT v5.3 (Stylish Black)",
-    "category": "earbuds"
+    "category": "earbuds",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "OnePlus Buds 3",
@@ -178,7 +204,9 @@
     ],
     "price": 5499,
     "description": "OnePlus Buds 3 TWS in Ear Earbuds with Upto 49dB Smart Adaptive Noise Cancellation,Hi-Res Sound Quality,Sliding Volume Control,10mins for 7Hours Fast Charging with Upto 44Hrs Playback (Splendid Blue)",
-    "category": "earbuds"
+    "category": "earbuds",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "JBL Go 3",
@@ -190,7 +218,9 @@
     ],
     "price": 2799,
     "description": "JBL Go 3, Wireless Ultra Portable Bluetooth Speaker, Pro Sound, Vibrant Colors with Rugged Fabric Design, Waterproof, Type C (Without Mic, Blue)",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Srhythm NC25",
@@ -202,7 +232,9 @@
     ],
     "price": 7399,
     "description": "Srhythm NC25 Wireless Headphones Bluetooth 5.3,Lightweight Noise Cancelling Headset Over-Ear with Low Latency,Game Mode",
-    "category": "headphones"
+    "category": "headphones",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Noise Two Wireless",
@@ -215,7 +247,9 @@
     ],
     "price": 1699,
     "description": "Noise Two Wireless On-Ear Headphones with 50 Hours Playtime, Low Latency(up to 40ms), 4 Play Modes, Dual Pairing, BT v5.3 (Serene Blue)",
-    "category": "headphones"
+    "category": "headphones",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Sony WH-CH520",
@@ -228,7 +262,9 @@
     ],
     "price": 4889,
     "description": "Sony WH-CH520, Wireless On-Ear Bluetooth Headphones with Mic, Upto 50 Hours Playtime, DSEE Upscale, Multipoint Connectivity/Dual Pairing,Voice Assistant App Support for Mobile Phones (Black)",
-    "category": "headphones"
+    "category": "headphones",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "JBL Tune 770NC",
@@ -242,7 +278,9 @@
     ],
     "price": 5999,
     "description": "JBL Tune 770NC Wireless Over Ear ANC Headphones with Mic, Upto 70 Hrs Playtime, Speedcharge, Google Fast Pair, Dual Pairing, BT 5.3 LE Audio, Customize on Headphones App (Purple)",
-    "category": "headphones"
+    "category": "headphones",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Apple AirPods Max",
@@ -255,7 +293,9 @@
     ],
     "price": 59990,
     "description": "Comes with dynamic driver ,Active Noise Cancellation blocks outside noise, so you can immerse yourself in music,Transparency mode for hearing and interacting with the world around you,Spatial audio with dynamic head tracking provides theater-like sound that surrounds you",
-    "category": "headphones"
+    "category": "headphones",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "boAt Stone 1450",
@@ -269,7 +309,9 @@
     ],
     "price": 4990,
     "description": "boAt Stone 1450 Portable Wireless Speaker with 40W RMS Signature Sound, RGB LEDs, TWS Feature, Multi-Compatibility Modes, IPX5 Water Resistance, EQ Modes(Black Storm)",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Marshall Emberton II",
@@ -282,7 +324,9 @@
     ],
     "price": 15990,
     "description": "Marshall Emberton II Compact Portable Bluetooth Speaker with 30+ Hours of Playtime, (360° Sound), Dust & Waterproof (IP67)-Black & Steel.",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   },
   {
     "title": "Artis BT12 Classic Retro",
@@ -297,6 +341,8 @@
     ],
     "price": 1299,
     "description": "Artis BT12 Classic Retro Wireless BT Speaker with FM/USB/AUX in & Hands Free Calling (5W RMS Output)",
-    "category": "speakers"
+    "category": "speakers",
+    "stock": 50,
+    "rating": 4
   }
 ]
