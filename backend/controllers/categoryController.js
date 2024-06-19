@@ -18,7 +18,7 @@ export const addNewCategory = async (req, res) => {
 
     } catch (err) {
         console.error("Error in Add Category Controller: ", err.message);
-        res.status(500).json({ error: "Internal Server Error!" });
+        res.status(501).json({ error: "INTERNAL SERVER ERROR" })
     }
 };
 export const getAllCategories = async (req, res) => {
@@ -27,7 +27,7 @@ export const getAllCategories = async (req, res) => {
         res.status(200).json({ categories })
     } catch (err) {
         console.log("Error in getting all categories :: " + err.message)
-        res.status(500).json({ error: "INTERNAL SERVER ERROR" })
+        res.status(501).json({ error: "INTERNAL SERVER ERROR" })
     }
 }
 export const getCategoryProducts = async (req, res) => {

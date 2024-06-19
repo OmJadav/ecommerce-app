@@ -36,13 +36,13 @@ export const Registerpage = () => {
                 <div className="flex -mx-3">
                   <div className="w-1/2 px-3 mb-5">
                     <InputField
-                      id="fname"
+                      id="firstName"
                       labelName="First Name"
                       iconName="account"
                       inputType="text"
                       placeholder="John"
                       formHook={{
-                        ...register("fname", {
+                        ...register("firstName", {
                           required: "First Name is Required",
                         }),
                       }}
@@ -50,19 +50,19 @@ export const Registerpage = () => {
                         required: true,
                       }}
                     />
-                    {errors.fname && (
-                      <p className="text-red-500">{errors.fname.message}</p>
+                    {errors.firstName && (
+                      <p className="text-red-500">{errors.firstName.message}</p>
                     )}
                   </div>
                   <div className="w-1/2 px-3 mb-5">
                     <InputField
-                      id="lname"
+                      id="lastName"
                       labelName="Last Name"
                       iconName="account"
                       inputType="text"
                       placeholder="Smith"
                       formHook={{
-                        ...register("lname", {
+                        ...register("lastName", {
                           required: "Last Name is Required",
                         }),
                       }}
@@ -70,8 +70,8 @@ export const Registerpage = () => {
                         required: true,
                       }}
                     />
-                    {errors.lname && (
-                      <p className="text-red-500">{errors.lname.message}</p>
+                    {errors.lastName && (
+                      <p className="text-red-500">{errors.lastName.message}</p>
                     )}
                   </div>
                 </div>
