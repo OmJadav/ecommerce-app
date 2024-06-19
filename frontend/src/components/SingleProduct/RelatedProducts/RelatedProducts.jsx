@@ -1,8 +1,8 @@
 import Products from "../../Products/Products";
-const RelatedProducts = () => {
+const RelatedProducts = ({ data }) => {
   return (
     <div className="related-products">
-      <Products headingText={"Related Products"} />
+      <Products headingText={"Related Products"} products={data} />
     </div>
   );
 };

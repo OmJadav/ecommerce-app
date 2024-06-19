@@ -14,8 +14,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     height: 50px;
     max-width: 1200px;
+    position: relative; // Add this line
     margin: 0 auto;
     @include md {
       height: 80px;
@@ -35,17 +37,31 @@
       }
     }
 
+    // .center {
+    //   font-size: 22px;
+    //   font-weight: 700;
+    //   cursor: pointer;
+    //   @include md {
+    //     font-size: 34px;
+    //     position: absolute;
+    //     text-align: center;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //   }
+    // }
+
     .center {
       font-size: 22px;
       font-weight: 700;
       cursor: pointer;
+      position: absolute; // Change this line
+      left: 50%; // Add this line
+      transform: translateX(-50%); // Add this line
       @include md {
         font-size: 34px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
       }
     }
+
     .right {
       display: flex;
       align-items: center;

@@ -1,5 +1,6 @@
 import express from 'express'
 import process from 'process'
+import cors from 'cors'
 import dotenv, { config } from 'dotenv';
 import connectDb from './dbConfig/dbConfig.js';
 import productRoutes from './routes/productsRoute.js';
@@ -12,6 +13,7 @@ const port = process.env.PORT || 8080
 // app.get('/', (req, res) => {
 //     res.send("<h1>Backend is ready</h1>")
 // })
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -3,7 +3,6 @@ const products = [
         "title": "Noise Pulse 2 Max 1.85\" Display, Bluetooth Calling Smart Watch",
         "thumbnail": "https://m.media-amazon.com/images/I/71Q8czKqSIL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/71Q8czKqSIL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61nAoz3GpRL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71QGrEqdLeL._SX679_.jpg"
         ],
@@ -17,7 +16,6 @@ const products = [
         "title": "Noise Explorer Kids Smart Watch",
         "thumbnail": "https://m.media-amazon.com/images/I/61uVE2o1IEL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61uVE2o1IEL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71i820XL8oL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/719g5LNIkNL._SX679_.jpg"
         ],
@@ -31,7 +29,6 @@ const products = [
         "title": "Noise Origin Smart Watch",
         "thumbnail": "https://m.media-amazon.com/images/I/71KkgWNagTL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/71KkgWNagTL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71veKxOYybL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71O6ifXro8L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/719g5LNIkNL._SX679_.jpg"
@@ -46,7 +43,6 @@ const products = [
         "title": "Amazfit Balance - AI Smartwatch",
         "thumbnail": "https://m.media-amazon.com/images/I/61s1286UHgL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61s1286UHgL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/715SdbEbpoL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61Jsz3g0BfL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71USiWutK2L._SX679_.jpg"
@@ -61,7 +57,6 @@ const products = [
         "title": "Apple Watch Series 9",
         "thumbnail": "https://m.media-amazon.com/images/I/7162zT9RKRL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/7162zT9RKRL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61ku8aR9zxL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81ujc3rj2iL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61E9FqYKHZL._SX679_.jpg"
@@ -76,7 +71,6 @@ const products = [
         "title": "Apple Watch SE (2nd Gen, 2023)",
         "thumbnail": "https://m.media-amazon.com/images/I/61rTufzD1zL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61rTufzD1zL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61zvtTqotsL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71p2TMZBlCL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71LFs6FLcEL._SX679_.jpg"
@@ -91,7 +85,6 @@ const products = [
         "title": "Apple Watch Ultra ",
         "thumbnail": "https://m.media-amazon.com/images/I/81QDwPwAPYL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/81QDwPwAPYL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81lQKgTMzQL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81mik1zN55L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/713qQXyv+9L._SX679_.jpg"
@@ -106,7 +99,6 @@ const products = [
         "title": "Apple Watch Ultra 2",
         "thumbnail": "https://m.media-amazon.com/images/I/71JNSeO-nbL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/71JNSeO-nbL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71Mdu94257L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71KHprfnKVL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71Q-4X6lBhL._SX679_.jpg",
@@ -122,7 +114,6 @@ const products = [
         "title": "Apple AirPods",
         "thumbnail": "https://m.media-amazon.com/images/I/61GDJtxN3NL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61GDJtxN3NL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61U+IquL13L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61CVih3UpdL._SX679_.jpg"
         ],
@@ -136,7 +127,6 @@ const products = [
         "title": "boAt Stone 352",
         "thumbnail": "https://m.media-amazon.com/images/I/81GnlIB9mFL._SX450_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/81GnlIB9mFL._SX450_.jpg",
             "https://m.media-amazon.com/images/I/9128Dl8OL3L._SX450_.jpg",
             "https://m.media-amazon.com/images/I/71P6rcq6idL._SX450_.jpg"
         ],
@@ -150,7 +140,6 @@ const products = [
         "title": "boAt Partypal 50",
         "thumbnail": "https://m.media-amazon.com/images/I/61bq0ILE5CL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61bq0ILE5CL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/719a4kP4KLL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/712W3p5nk3L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/6115OzTIyfL._SX679_.jpg",
@@ -166,7 +155,6 @@ const products = [
         "title": "OnePlus Nord Buds 2r",
         "thumbnail": "https://m.media-amazon.com/images/I/51oMWaW7tKL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/51oMWaW7tKL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/51Rm6la26qL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61oTsqcJ7JL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/51FVoU9tJ+L._SX679_.jpg"
@@ -181,7 +169,6 @@ const products = [
         "title": "realme Buds T300",
         "thumbnail": "https://m.media-amazon.com/images/I/61ZEQXGTepL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61ZEQXGTepL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71xtnSu+lhL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71jbCnynKjL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71C5xCWehoL._SX679_.jpg",
@@ -197,7 +184,6 @@ const products = [
         "title": "OnePlus Buds 3",
         "thumbnail": "https://m.media-amazon.com/images/I/51LxiMjx3XL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/51LxiMjx3XL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/51QQMpbUoiL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/51Tql8xO0dL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61j2Oz3VBYL._SX679_.jpg"
@@ -212,7 +198,6 @@ const products = [
         "title": "JBL Go 3",
         "thumbnail": "https://m.media-amazon.com/images/I/51waOv47fqL._SX569_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/51waOv47fqL._SX569_.jpg",
             "https://m.media-amazon.com/images/I/51eCmida9KL._SX569_.jpg",
             "https://m.media-amazon.com/images/I/41LT0mmIJoL._SX569_.jpg"
         ],
@@ -226,7 +211,6 @@ const products = [
         "title": "Srhythm NC25",
         "thumbnail": "https://m.media-amazon.com/images/I/61wbr2lSdJL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61wbr2lSdJL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71E5v8lqxPL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61ctrTFEfmL._SX679_.jpg"
         ],
@@ -240,7 +224,6 @@ const products = [
         "title": "Noise Two Wireless",
         "thumbnail": "https://m.media-amazon.com/images/I/517lSvEVVsL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/517lSvEVVsL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/6123McrMDhL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61e9pkNmWuL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71QyfyboQ8L._SX679_.jpg"
@@ -255,7 +238,6 @@ const products = [
         "title": "Sony WH-CH520",
         "thumbnail": "https://m.media-amazon.com/images/I/41lArSiD5hL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/41lArSiD5hL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/811UeUfPYdL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/91tTIC0vQML._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81gqmwsufOL._SX679_.jpg"
@@ -270,7 +252,6 @@ const products = [
         "title": "JBL Tune 770NC",
         "thumbnail": "https://m.media-amazon.com/images/I/51cJH+eKR6L._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/51cJH+eKR6L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71hAPNe5QcL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81nP0qWChfL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71Q1B5AOdPL._SX679_.jpg",
@@ -286,7 +267,6 @@ const products = [
         "title": "Apple AirPods Max",
         "thumbnail": "https://m.media-amazon.com/images/I/81thV7SoLZL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/81thV7SoLZL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/81IfN-Rw8uL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/915jkZ40kSL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71xPnuZZPWL._SX679_.jpg"
@@ -301,7 +281,6 @@ const products = [
         "title": "boAt Stone 1450",
         "thumbnail": "https://m.media-amazon.com/images/I/71RWq2CjD-L._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/71RWq2CjD-L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/71ge+hwqeRL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61JsClraf-L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/716pkCNeqtL._SX679_.jpg",
@@ -317,7 +296,6 @@ const products = [
         "title": "Marshall Emberton II",
         "thumbnail": "https://m.media-amazon.com/images/I/61hJmFEUMnL._SX679_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61hJmFEUMnL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/61m80VG-phL._SX679_.jpg",
             "https://m.media-amazon.com/images/I/7125lE4Uu9L._SX679_.jpg",
             "https://m.media-amazon.com/images/I/716pkCNeqtL._SX679_.jpg"
@@ -332,7 +310,6 @@ const products = [
         "title": "Artis BT12 Classic Retro",
         "thumbnail": "https://m.media-amazon.com/images/I/61721FT561L._SY450_.jpg",
         "images": [
-            "https://m.media-amazon.com/images/I/61721FT561L._SY450_.jpg",
             "https://m.media-amazon.com/images/I/81LglKyXSBL._SY450_.jpg",
             "https://m.media-amazon.com/images/I/81bs0Rk0RIL._SY450_.jpg",
             "https://m.media-amazon.com/images/I/81w3gK2XJEL._SY450_.jpg",

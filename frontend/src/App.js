@@ -10,24 +10,59 @@ import Newsletter from "./components/Footer/Newsletter/Newsletter";
 import AppContext from './utils/context';
 import { Loginpage } from './components/auth/Loginpage'
 import { Registerpage } from './components/auth/Registerpage'
+import { AddProductForm } from './admin/AddProductForm';
+import AdminHome from './admin/AdminHome';
+import AdminCategoryIn from './admin/AdminCategoryIn';
 
 function App() {
   return (
     <BrowserRouter>
       <AppContext>
-        {/* <Header /> */}
         <Routes>
-          <Route path='/' element={<><Header /><Home /><Newsletter /><Footer /></>} />
-          <Route path='/category/:id' element={<><Header /><Category /><Newsletter /><Footer /></>} />
-          <Route path='/product/:id' element={<><Header /><SingleProduct /><Newsletter /><Footer /></>} />
-          <Route path='/login' element={<Loginpage />} />
-          <Route path='/register' element={<Registerpage />} />
+          <Route path='/*' element={userRoutes()} />
+          <Route path='/admin/*' element={adminRoutes()} />
+          <Route path='/auth/*' element={authRoutes()} />
         </Routes>
-        {/* <Newsletter /> */}
-        {/* <Footer /> */}
       </AppContext>
     </BrowserRouter>
   );
+}
+function authRoutes() {
+  return (
+    <>
+      <Routes>
+        <Route path='/login' element={<Loginpage />} />
+        <Route path='/register' element={<Registerpage />} />
+      </Routes>
+    </>
+  );
+}
+function userRoutes() {
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<><Home /></>} />
+        <Route path='/category/:id' element={<><Category /></>} />
+        <Route path='/product/:id' element={<><SingleProduct /></>} />
+      </Routes>
+      <Newsletter />
+      <Footer />
+    </>
+  )
+}
+function adminRoutes() {
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<><AdminHome /></>} />
+        <Route path='/add-new' element={<AddProductForm />} />
+        <Route path='/update-product/:id' element={<AddProductForm />} />
+        <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
+      </Routes>
+    </>
+  )
 }
 
 export default App;

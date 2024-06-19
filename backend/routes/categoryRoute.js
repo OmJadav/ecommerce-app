@@ -3,7 +3,7 @@ import { addNewCategory, getAllCategories, getCategoryProducts } from "../contro
 const router = express.Router();
 
 router.post('/addnewcategory', addNewCategory);
-router.get('/categories', getAllCategories)
+router.get('/allcategories', getAllCategories)
 router.get('/categoryproducts/:id', getCategoryProducts)
 
 export default router;

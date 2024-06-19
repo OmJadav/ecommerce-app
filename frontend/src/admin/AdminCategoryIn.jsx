@@ -1,11 +1,11 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import Products from "../Products/Products";
-import "./Category.scss";
+import { useNavigate, useParams } from "react-router-dom";
+import "../components/Category/Category.scss";
 import { Dropdown } from "flowbite-react";
-import useFetch from "../Hooks/useFetch";
-import { Context } from "../../utils/context";
 import { useContext, useState } from "react";
-const Category = () => {
+import useFetch from "../components/Hooks/useFetch";
+import { Context } from "../utils/context";
+import AdminProducts from "./AdminProducts";
+const AdminCategoryIn = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/categories/categoryproducts/${id}`);
   // console.log(data);
@@ -26,9 +26,8 @@ const Category = () => {
                 categories.map((category) => (
                   <Dropdown.Item
                     key={category._id}
-                    // onClick={() => Navigate(`/category/${category._id}`)}
                     onClick={() => {
-                      navigate(`/category/${category._id}`);
+                      navigate(`/admin/admin-category/${category._id}`);
                       setSelectCategory(category.name);
                     }}
                   >
@@ -37,12 +36,11 @@ const Category = () => {
                 ))}
             </Dropdown>
           </div>
-          <div className="sec-heading">{data?.category?.name}</div>
-          {/* <div className="category-title">{data?.category?.name}</div> */}
+          <div className="category-title">{data?.category?.title}</div>
           {products?.length === 0 ? (
             <h1 className="no-product text-center">No Product Available !!!</h1>
           ) : (
-            <Products innerPage={true} products={products} />
+            <AdminProducts innerPage={true} products={products} />
           )}
         </div>
       </div>
@@ -50,4 +48,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default AdminCategoryIn;

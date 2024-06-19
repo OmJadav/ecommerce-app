@@ -3,6 +3,7 @@
   margin: 20px 0;
   @include md {
     margin: 75px 0;
+    margin-top: 40px;
   }
   .layout {
     max-width: calc(100% - 20px);
@@ -17,8 +18,23 @@
         flex-direction: row;
       }
       .left {
+        div {
+          div {
+            button {
+              border-radius: 45%;
+              background-color: rgba(0, 0, 0, 0.6);
+            }
+          }
+        }
+        span {
+          svg {
+            color: white;
+          }
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.05);
+        // background-color: rgba(0, 0, 0, 0.05);
         flex-shrink: 0;
         @include md {
           width: 600px;
@@ -129,6 +145,15 @@
             display: block;
             &:nth-child(1) {
               margin-bottom: 20px;
+            }
+            .social-icons {
+              display: flex;
+              align-items: center;
+              svg {
+                margin-right: 10px;
+                cursor: pointer;
+                color: #6b6b6b;
+              }
             }
             span {
               font-size: 16px;

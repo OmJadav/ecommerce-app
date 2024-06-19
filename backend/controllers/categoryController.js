@@ -33,7 +33,7 @@ export const getAllCategories = async (req, res) => {
 export const getCategoryProducts = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
+        // console.log(id);
         const category = await Category.findById(id).populate("products");
         if (!category) {
             return res.status(404).json({ error: "No Products found !" })

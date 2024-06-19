@@ -18,8 +18,8 @@ export const getAllProducts = async (req, res) => {
 export const addNewProduct = async (req, res) => {
     try {
         const { title, thumbnail, images, price, description, category, stock, rating } = req.body;
-        console.log(req.body);
-        if (!title || !thumbnail || !images.length || !price || !description || !category || stock === undefined || rating === undefined) {
+        // console.log(req.body);
+        if (!title || !thumbnail || !images.length || !price || !description || !category) {
             return res.status(400).json({ error: "Fill all the fields !" })
         }
         if (!mongoose.Types.ObjectId.isValid(category)) {
@@ -48,6 +48,7 @@ export const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, thumbnail, images, price, description, category, stock, rating } = req.body;
+        // console.log(req.body);
         if (!title || !thumbnail || !images.length || !price || !description || !category || stock === undefined || rating === undefined) {
             return res.status(400).json({ error: "Fill all the fields !" })
         }
@@ -55,6 +56,12 @@ export const updateProduct = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Product does not exists!" });
         }
+
+        const existingProduct = await Product.findById(id);
+        if (!existingProduct) {
+            return res.status(404).json({ error: "Product does not exist!" });
+        }
+
         const updatedProduct = await Product.findByIdAndUpdate(id, { title, thumbnail, images, price, description, category: category, stock, rating }, { new: true, runValidators: true })
 
         res.status(200).json({ updatedProduct });
@@ -67,14 +74,20 @@ export const updateProduct = async (req, res) => {
 export const getSingleProduct = async (req, res) => {
     try {
         const { id } = req.params;
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Product does not exists!" });
         }
-        const product = await Product.findById(id);
+        const product = await Product.findById(id).populate('category');
         if (!product) {
             return res.status(400).json({ error: "Product does not exists!" });
         }
-        res.status(200).json({ product });
+        const relatedProducts = await Product.find({
+            category: product.category._id,
+            _id: { $ne: product._id }
+        }).limit(4);
+
+        res.status(200).json({ product, relatedProducts });
 
     } catch (err) {
         console.log("Error in getting single product ! ::" + err.message);
@@ -101,3 +114,19 @@ export const deleteProduct = async (req, res) => {
         res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
     }
 }
+
+export const getSearchProduct = async (req, res) => {
+    try {
+        const { query } = req.params;
+        const regexPattern = new RegExp(query, "i");
+
+        const products = await Product.find({ title: { $regex: regexPattern } });
+        if (products.length === 0) {
+            return res.status(404).json({ error: "No products found!" });
+        }
+        res.status(200).json({ products });
+    } catch (err) {
+        console.log("Error in getting search products: " + err.message);
+        res.status(500).json({ error: "Internal Server Error!" });
+    }
+};

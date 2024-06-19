@@ -1,29 +1,56 @@
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust height as necessary */
+}
+
+.loading::before {
+  content: "";
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc; /* Light grey color for the background of the spinner */
+  border-top-color: #3498db; /* Blue color for the spinner */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @mixin sm {
-    @media only screen and (min-width: 640px) {
-        @content;
-    }
+  @media only screen and (min-width: 640px) {
+    @content;
+  }
 }
 
 @mixin md {
-    @media only screen and (min-width: 768px) {
-        @content;
-    }
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
 }
 
 @mixin lg {
-    @media only screen and (min-width: 1024px) {
-        @content;
-    }
+  @media only screen and (min-width: 1024px) {
+    @content;
+  }
 }
 
 @mixin xl {
-    @media only screen and (min-width: 1280px) {
-        @content;
-    }
+  @media only screen and (min-width: 1280px) {
+    @content;
+  }
 }
 
 @mixin xxl {
-    @media only screen and (min-width: 1536px) {
-        @content;
-    }
+  @media only screen and (min-width: 1536px) {
+    @content;
+  }
 }

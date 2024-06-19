@@ -3,6 +3,7 @@ import { SideImage } from "./SideImage";
 import { InputField } from "./InputField";
 import { useForm } from "react-hook-form";
 import { AuthFooter } from "./AuthFooter";
+import { Link } from "react-router-dom";
 
 export const Registerpage = () => {
   const {
@@ -164,7 +165,9 @@ export const Registerpage = () => {
               <div className="text-center">
                 <h1 className="font-semibold">
                   Already Have an account?{" "}
-                  <span className="underline cursor-pointer">Login</span>
+                  <Link to={"/auth/login"}>
+                    <span className="underline cursor-pointer">Login</span>
+                  </Link>
                 </h1>
               </div>
             </div>
