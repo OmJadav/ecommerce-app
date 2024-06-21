@@ -24,8 +24,7 @@ export const Loginpage = () => {
       console.log("Response Api : ", response.data);
       localStorage.setItem("userInfo", JSON.stringify(response.data));
       toast.success(response.data.message);
-      // window.location.href = "/";
-      navigate("/");
+      window.location.href = "/";
       console.log("User registered successfully:", response.data);
     } catch (error) {
       toast.error(error.response.data.error);
