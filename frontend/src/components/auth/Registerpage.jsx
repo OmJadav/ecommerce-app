@@ -4,6 +4,10 @@ import { InputField } from "./InputField";
 import { useForm } from "react-hook-form";
 import { AuthFooter } from "./AuthFooter";
 import { Link } from "react-router-dom";
+import { sendDataApi } from "../../utils/api";
+import toast from "react-hot-toast";
+import backendUrl from "../../utils/backendUrl";
+import axios from "axios";
 
 export const Registerpage = () => {
   const {
@@ -12,6 +16,23 @@ export const Registerpage = () => {
     reset,
     handleSubmit,
   } = useForm();
+
+  const registerUser = async (data) => {
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/auth/register`,
+        data
+      );
+      // console.log("Response Api : ", response.data);
+      toast.success(response.data.message);
+      window.location.href = "/auth/login";
+      console.log("User registered successfully:", response.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+      console.error("Error registering user axios:", error);
+      console.log("api error : ", error.response.data.error);
+    }
+  };
 
   return (
     <>
@@ -28,9 +49,10 @@ export const Registerpage = () => {
               </div>
               <form
                 noValidate
-                onSubmit={handleSubmit((data) => {
+                onSubmit={handleSubmit(async (data) => {
                   reset();
-                  console.log(data);
+                  registerUser(data);
+                  // console.log(data);
                 })}
               >
                 <div className="flex -mx-3">

@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
 import { AuthFooter } from "./AuthFooter";
 import { Link } from "react-router-dom";
+import backendUrl from "../../utils/backendUrl";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const Loginpage = () => {
   const {
@@ -12,6 +15,23 @@ export const Loginpage = () => {
     reset,
     handleSubmit,
   } = useForm();
+
+  const loginUser = async (data) => {
+    try {
+      const response = await axios.post(`${backendUrl}/api/auth/login`, data, {
+        withCredentials: true,
+      });
+      console.log("Response Api : ", response.data);
+      localStorage.setItem("userInfo", JSON.stringify(response.data));
+      toast.success(response.data.message);
+      window.location.href = "/";
+      console.log("User registered successfully:", response.data);
+    } catch (error) {
+      toast.error(error.response.data.error);
+      console.log("api error : ", error.response.data.error);
+      console.log("Error registering user axios:", error);
+    }
+  };
 
   return (
     <>
@@ -29,7 +49,8 @@ export const Loginpage = () => {
                 noValidate
                 onSubmit={handleSubmit((data) => {
                   reset();
-                  console.log(data);
+                  loginUser(data);
+                  // console.log(data);
                 })}
               >
                 <div className="flex -mx-3">

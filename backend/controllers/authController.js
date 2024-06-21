@@ -19,13 +19,14 @@ export const registerUser = async (req, res, next) => {
         const createdUser = await newUser.save();
         if (createdUser) {
             generateToken(res, createdUser._id);
-            return res.status(201).json({ _id: createdUser._id, firstName: createdUser.firstName, lastName: createdUser.lastName, email: createdUser.email, message: "User registered successfully!" });
-
+            res.status(201).json({ _id: createdUser._id, firstName: createdUser.firstName, lastName: createdUser.lastName, email: createdUser.email, message: "User registered successfully!" });
+        } else {
+            res.status(400).json({ error: "Invalid signup user data" })
         }
         // res.status(200).json({ message: "User registered successfully!" });
     } catch (err) {
         console.error("Error in signup ::", err.message);
-        res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
+        res.status(501).json({ error: "Signup Failed!" })
     }
 }
 export const loginUser = async (req, res, next) => {
@@ -39,21 +40,21 @@ export const loginUser = async (req, res, next) => {
 
         if (user && (await user.matchPassword(password))) {
             generateToken(res, user._id);
-            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, addresses: user.addresses, message: "User Authorized" });
+            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized" });
         } else {
             return res.status(400).json({ error: "Invalid Credentials!" });
         }
     } catch (err) {
         console.error("Error in login", err.message);
-        res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
+        res.status(501).json({ error: "Login Failed!" })
     }
 }
 export const logoutUser = async (req, res, next) => {
     try {
         res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) })
-        return res.status(200).json({ message: "User Logged Out" })
+        res.status(200).json({ message: "User Logged Out" })
     } catch (err) {
         console.error("Error in logout ::", err.message);
-        res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
+        res.status(501).json({ error: "Logout Failed!" })
     }
 }

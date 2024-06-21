@@ -13,10 +13,13 @@ import { Registerpage } from './components/auth/Registerpage'
 import { AddProductForm } from './admin/AddProductForm';
 import AdminHome from './admin/AdminHome';
 import AdminCategoryIn from './admin/AdminCategoryIn';
-
+import { AdminProtected } from './components/protected/AdminProtected';
+import { Toaster } from 'react-hot-toast'
 function App() {
+
   return (
     <BrowserRouter>
+      <Toaster />
       <AppContext>
         <Routes>
           <Route path='/*' element={userRoutes()} />
@@ -55,12 +58,14 @@ function adminRoutes() {
   return (
     <>
       <Header />
+      {/* <AdminProtected> */}
       <Routes>
         <Route path='/' element={<><AdminHome /></>} />
         <Route path='/add-new' element={<AddProductForm />} />
         <Route path='/update-product/:id' element={<AddProductForm />} />
         <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
       </Routes>
+      {/* </AdminProtected> */}
     </>
   )
 }

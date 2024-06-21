@@ -1,6 +1,6 @@
 import "./Header.scss";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
 import { FaUserLarge } from "react-icons/fa6";
@@ -18,11 +18,12 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { sendDataApi } from "../../utils/api";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { cartCount } = useContext(Context);
+  const { cartCount, userData } = useContext(Context);
   const navigate = useNavigate();
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -35,6 +36,12 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   }, []);
+
+  const userLogout = () => {
+    sendDataApi(`/api/auth/logout`);
+    localStorage.removeItem("userInfo");
+    window.location.href = "/";
+  };
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -66,20 +73,78 @@ const Header = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem>
-                    {({ focus }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          focus ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
+                <MenuItems className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  {userData && userData !== undefined ? (
+                    <>
+                      <MenuItem>
+                        {({ focus }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              focus ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Your Profile
+                          </a>
                         )}
-                      >
-                        Your Profile
-                      </a>
-                    )}
-                  </MenuItem>
+                      </MenuItem>
+                      <MenuItem>
+                        {({ focus }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              focus ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Your Orders
+                          </a>
+                        )}
+                      </MenuItem>
+                      <MenuItem>
+                        {({ focus }) => (
+                          <div
+                            onClick={userLogout}
+                            className={classNames(
+                              focus ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700",
+                              "cursor-pointer"
+                            )}
+                          >
+                            Log out
+                          </div>
+                        )}
+                      </MenuItem>
+                      <MenuItem>
+                        {({ focus }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              focus ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            {userData.firstName} {userData.lastName}
+                          </a>
+                        )}
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <MenuItem>
+                      {({ focus }) => (
+                        <Link
+                          to={"/auth/login"}
+                          className={classNames(
+                            focus ? "bg-gray-100" : "",
+                            "block px-4 py-2 text-sm text-gray-700"
+                          )}
+                        >
+                          Login
+                        </Link>
+                      )}
+                    </MenuItem>
+                  )}
                 </MenuItems>
               </Transition>
             </Menu>

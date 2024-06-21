@@ -107,7 +107,7 @@ export const deleteProduct = async (req, res) => {
         }
         await Category.updateOne({ _id: product.category }, { $pull: { products: id } })
         await product.deleteOne({ _id: id })
-        res.status(200).json({ message: "Product Deleted Successfully" });
+        return res.status(200).json({ message: "Product Deleted Successfully" });
 
     } catch (err) {
         console.log("Error in deleting product ! ::" + err.message);

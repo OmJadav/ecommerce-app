@@ -11,7 +11,15 @@ const AppContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
     const [cartCount, setCartCount] = useState(0)
     const [cartSubTotal, setCartSubTotal] = useState(0)
+    const [userData, setUserData] = useState();
 
+
+    const userInfo = JSON.parse(localStorage?.getItem('userInfo'))
+    // console.log(userInfo);
+    useEffect(() => {
+        setUserData(userInfo);
+
+    }, [])
     const location = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -87,7 +95,9 @@ const AppContext = ({ children }) => {
             setCartSubTotal,
             handleAddToCart,
             handleRemoveFromCart,
-            handleCartProductQuantity
+            handleCartProductQuantity,
+            userData,
+            setUserData
         }}>
             {children}
         </Context.Provider>

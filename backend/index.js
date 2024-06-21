@@ -16,10 +16,14 @@ const port = process.env.PORT || 8080
 // app.get('/', (req, res) => {
 //     res.send("<h1>Backend is ready</h1>")
 // })
-app.use(cors());
+
+app.use(cors({
+    origin: 'http://localhost:3000', // Frontend URL
+    credentials: true
+}));
+app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 
 app.use("/api/products", productRoutes)
