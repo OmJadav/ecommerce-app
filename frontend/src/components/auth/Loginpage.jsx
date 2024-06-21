@@ -3,7 +3,7 @@ import { SideImage } from "./SideImage";
 import { useForm } from "react-hook-form";
 import { InputField } from "./InputField";
 import { AuthFooter } from "./AuthFooter";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import backendUrl from "../../utils/backendUrl";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -15,7 +15,7 @@ export const Loginpage = () => {
     reset,
     handleSubmit,
   } = useForm();
-
+  const navigate = useNavigate();
   const loginUser = async (data) => {
     try {
       const response = await axios.post(`${backendUrl}/api/auth/login`, data, {
@@ -24,7 +24,8 @@ export const Loginpage = () => {
       console.log("Response Api : ", response.data);
       localStorage.setItem("userInfo", JSON.stringify(response.data));
       toast.success(response.data.message);
-      window.location.href = "/";
+      // window.location.href = "/";
+      navigate("/");
       console.log("User registered successfully:", response.data);
     } catch (error) {
       toast.error(error.response.data.error);
