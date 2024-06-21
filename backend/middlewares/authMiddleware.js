@@ -3,12 +3,16 @@ import User from '../models/UserSchema.js'
 
 const protect = async (req, res, next) => {
     try {
-        let token = req.cookies.jwt;
+        let token;
+        token = req.headers.authorization;
+        // token = req.cookies.jwt
+        if (token.startsWith("Bearer ")) {
+            token = token.slice(7).trimLeft();
+        }
         // console.log(token);
         if (token) {
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
                 req.user = await User.findById(decoded.userId).select('-password');
                 next();
             } catch (error) {

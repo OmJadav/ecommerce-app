@@ -39,8 +39,8 @@ export const loginUser = async (req, res, next) => {
         }
 
         if (user && (await user.matchPassword(password))) {
-            generateToken(res, user._id);
-            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized" });
+            const token = generateToken(res, user._id);
+            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized", token: token });
         } else {
             return res.status(400).json({ error: "Invalid Credentials!" });
         }
@@ -51,7 +51,7 @@ export const loginUser = async (req, res, next) => {
 }
 export const logoutUser = async (req, res, next) => {
     try {
-        res.cookie('jwt', '', { httpOnly: true, expires: new Date(0) })
+        res.cookie('jwt', '', { httpOnly: true, secure: true, expires: new Date(0) })
         res.status(200).json({ message: "User Logged Out" })
     } catch (err) {
         console.error("Error in logout ::", err.message);

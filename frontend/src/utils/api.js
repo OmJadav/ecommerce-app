@@ -11,9 +11,11 @@ export const fetchDataApi = async (url) => {
         toast.error(error.response.data.error);
     }
 }
+const token = localStorage?.getItem("token-no");
+console.log(token);
 export const sendDataApi = async (url, newData) => {
     try {
-        const response = await axios.post(backendUrl + url, newData, {
+        const response = await axios.post(backendUrl + url, newData, { headers: { Authorization: `Bearer ${token}` } }, {
             withCredentials: true,
         })
         console.log(response.data);

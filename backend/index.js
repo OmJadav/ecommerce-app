@@ -18,7 +18,8 @@ const port = process.env.PORT || 8080
 // })
 
 app.use(cors({
-    origin: 'https://ecommerce-app-sage-ten.vercel.app', // Frontend URL
+    origin: 'https://ecommerce-app-sage-ten.vercel.app',
+    // origin: 'http://localhost:3000', 
     credentials: true
 }));
 app.use(cookieParser());

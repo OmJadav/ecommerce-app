@@ -39,7 +39,8 @@ const Header = () => {
 
   const userLogout = () => {
     sendDataApi(`/api/auth/logout`);
-    localStorage.removeItem("userInfo");
+    localStorage?.removeItem("userInfo");
+    localStorage?.removeItem("token-no");
     window.location.href = "/";
   };
 
