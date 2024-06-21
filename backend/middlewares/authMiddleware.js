@@ -3,8 +3,7 @@ import User from '../models/UserSchema.js'
 
 const protect = async (req, res, next) => {
     try {
-        // let token = req.cookies.jwt;
-        let token = localStorage.getItem('jwt');
+        let token = req.cookies.jwt;
         // console.log(token);
         if (token) {
             try {

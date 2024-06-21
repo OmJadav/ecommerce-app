@@ -9,6 +9,5 @@ const generateToken = (res, userId) => {
         sameSite: 'strict', secure: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
     });
-    localStorage.setItem('jwt', token)
 }
 export default generateToken;
