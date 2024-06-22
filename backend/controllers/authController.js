@@ -51,7 +51,7 @@ export const loginUser = async (req, res, next) => {
 }
 export const logoutUser = async (req, res, next) => {
     try {
-        res.cookie('jwt', '', { httpOnly: true, secure: true, expires: new Date(0) })
+        res.cookie('jwt', '', { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: 'None', expires: new Date(0) })
         res.status(200).json({ message: "User Logged Out" })
     } catch (err) {
         console.error("Error in logout ::", err.message);
