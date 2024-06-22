@@ -39,8 +39,8 @@ export const loginUser = async (req, res, next) => {
         }
 
         if (user && (await user.matchPassword(password))) {
-            const token = generateToken(res, user._id);
-            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized", token: token });
+            generateToken(res, user._id);
+            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized" });
         } else {
             return res.status(400).json({ error: "Invalid Credentials!" });
         }

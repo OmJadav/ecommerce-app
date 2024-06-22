@@ -4,12 +4,7 @@ import User from '../models/UserSchema.js'
 const protect = async (req, res, next) => {
     try {
         let token;
-        token = req.headers.authorization;
-        // token = req.cookies.jwt
-        if (token.startsWith("Bearer ")) {
-            token = token.slice(7).trimLeft();
-        }
-        // console.log(token);
+        token = req.cookies.jwt
         if (token) {
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
