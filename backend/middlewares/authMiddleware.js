@@ -26,7 +26,7 @@ export const admin = (req, res, next) => {
     if (req.user && req.user.role === 'ad@min#') {
         next();
     } else {
-        res.status(403).json({ error: "Access denied! - Admins only" });
+        res.status(403).json({ error: "Access denied!" });
     }
 }
 export default protect;

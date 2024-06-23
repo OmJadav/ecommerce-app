@@ -12,7 +12,7 @@ const useFetch = (endpoint) => {
                 const res = await fetchDataApi(endpoint);
                 setData(res);
             } catch (err) {
-                setError(err.message);
+                setError(err.error);
             } finally {
                 setLoading(false);
             }

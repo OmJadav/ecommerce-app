@@ -16,7 +16,7 @@ export const sendDataApi = async (url, newData) => {
         const response = await axios.post(backendUrl + url, newData, {
             withCredentials: true,
         })
-        console.log(response.data);
+        // console.log(response.data);
         return response.data
     } catch (error) {
         console.error("ERROR in sending data API: " + error.message);

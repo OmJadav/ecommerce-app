@@ -37,7 +37,7 @@ export const addNewProduct = async (req, res) => {
         categoryCheck.products.push(newProduct._id);
         await categoryCheck.save()
 
-        res.status(201).json({ newProduct });
+        res.status(201).json({ newProduct, message: "New Product Added" });
     } catch (err) {
         console.log("Error in adding new product ! ::" + err.message);
         res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
@@ -64,7 +64,7 @@ export const updateProduct = async (req, res) => {
 
         const updatedProduct = await Product.findByIdAndUpdate(id, { title, thumbnail, images, price, description, category: category, stock, rating }, { new: true, runValidators: true })
 
-        res.status(200).json({ updatedProduct });
+        res.status(200).json({ updatedProduct, message: "Product Updated Successfully" });
     } catch (err) {
         console.log("Error in updating product ! ::" + err.message);
         res.status(501).json({ error: "INTERNAL SERVER ERROR!" })

@@ -1,6 +1,10 @@
 import { createContext, useEffect, useState } from 'react'
-import { fetchDataApi } from './api';
+import { fetchDataApi, sendDataApi } from './api';
 import { useLocation } from 'react-router-dom';
+import useFetch from '../components/Hooks/useFetch';
+import backendUrl from './backendUrl';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export const Context = createContext();
 
@@ -12,62 +16,100 @@ const AppContext = ({ children }) => {
     const [cartCount, setCartCount] = useState(0)
     const [cartSubTotal, setCartSubTotal] = useState(0)
     const [userData, setUserData] = useState();
-
+    const [fetchCartFlag, setFetchCartFlag] = useState(false);
 
     const userInfo = JSON.parse(localStorage?.getItem('userInfo'))
-    // console.log(userInfo);
-    useEffect(() => {
-        setUserData(userInfo);
+    const userId = userInfo?._id;
 
-    }, [])
+    useEffect(() => {
+        setUserData(userInfo)
+    }, [userId])
+
     const location = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
 
-    const handleAddToCart = (product, quantity) => {
-        let items = [...cartItems]
-        let index = items.findIndex(p => p._id === product._id)
+    useEffect(() => {
+        let count = 0;
+        cartItems.forEach((item) => (count += item.quantity));
+        setCartCount(count);
+
+        let subTotal = 0;
+
+        cartItems.forEach((item) => (subTotal += item?.product?.price * item.quantity));
+        setCartSubTotal(subTotal);
+    }, [cartItems]);
+
+    const handleAddToCart = async (product, quantity) => {
+        let items = [...cartItems];
+        // let index = items?.findIndex((p) => p._id === product?._id);
+        let index = cartItems.findIndex((p) => p.product._id === product._id);
         if (index !== -1) {
-            items[index].quantity += quantity
+            alert("product already added")
         } else {
             product.quantity = quantity;
             items = [...items, product];
+            setCartItems(items);
+            let newItem = {
+                quantity,
+                product: product._id,
+                user: userId,
+            }
+            await sendDataApi(`/api/cart/add-to-cart`, newItem)
+            setFetchCartFlag(!fetchCartFlag);
         }
-        setCartItems(items)
-    }
-    const handleRemoveFromCart = (product, quantity) => {
-        let items = [...cartItems]
-        items = items.filter(p => p._id !== product._id)
-        setCartItems(items)
-    }
-    const handleCartProductQuantity = (type, product) => {
-        let items = [...cartItems]
-        let index = items.findIndex(p => p._id === product._id)
+    };
+    const handleRemoveFromCart = async (product) => {
+        let items = [...cartItems];
+        items = items?.filter((p) => p._id !== product._id);
+        setCartItems(items);
+        await sendDataApi(`/api/cart/delete-cart-product/${product._id}`, { userId: userId });
+        setFetchCartFlag(!fetchCartFlag);
+    };
+
+    useEffect(() => {
+        const userCartItems = async () => {
+            try {
+                const response = await axios.get(`${backendUrl}/api/cart/fetch-cart/${userId}`, {
+                    withCredentials: true,
+                })
+                setCartItems(response.data)
+                return response.data
+            } catch (error) {
+                console.error("ERROR in fetching data API: " + error.message);
+                console.log(error.response.data.error);
+                toast.error(error.response.data.error);
+            }
+        }
+        userCartItems();
+
+    }, [userId, fetchCartFlag])
+
+    const handleCartProductQuantity = async (type, product) => {
+        let items = [...cartItems];
+        let index = items.findIndex((p) => p._id === product._id);
         if (type === "inc") {
             items[index].quantity += 1;
-        } else if (type === 'dec') {
+        } else if (type === "dec") {
             if (items[index].quantity === 1) return;
             items[index].quantity -= 1;
         }
         setCartItems(items);
-    }
-
-
-    useEffect(() => {
-        let count = 0;
-        cartItems.map(item => count += item.quantity)
-        setCartCount(count)
-        let subTotal = 0;
-
-        cartItems.map(item => subTotal += item.price * item.quantity)
-        setCartSubTotal(subTotal)
-    }, [cartItems])
+        await sendDataApi(`/api/cart/updatecart/${product._id}`, { quantity: items[index].quantity, userId })
+        setFetchCartFlag(!fetchCartFlag);
+    };
 
     useEffect(() => {
         getCategories();
         getProducts();
+
     }, []);
+    // useEffect(() => {
+    //     if (userId) {
+    //         fetchDataApi(`/api/cart/fetch-cart/${userId}`).then(setCartItems);
+    //     }
+    // }, [userId]);
 
     const getCategories = () => {
         fetchDataApi("/api/categories/allcategories").then((res) => {
@@ -106,4 +148,8 @@ const AppContext = ({ children }) => {
 export default AppContext;
 
 
-//https://youtu.be/GKYr5eWm8EY?t=21563
+
+
+
+
+

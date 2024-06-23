@@ -7,6 +7,7 @@ import productRoutes from './routes/productsRoute.js';
 import categoryRoutes from './routes/categoryRoute.js'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/authRoute.js'
+import cartRoutes from './routes/cartRoute.js'
 import bodyParser from 'body-parser'
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
 dotenv.config();
@@ -19,24 +20,19 @@ const port = process.env.PORT || 8080
 
 app.use(cors({
     origin: 'https://ecommerce-app-sage-ten.vercel.app',
-    // origin: 'http://localhost:3000', 
+    // origin: 'http://localhost:3000',
     credentials: true
 }));
-app.use(cookieParser());
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser())
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 app.use("/api/products", productRoutes)
 app.use("/api/auth", authRoutes)
+app.use('/api/cart', cartRoutes)
 app.use("/api/categories", categoryRoutes)
 
 app.listen(port, () => {
     console.log(`Server is running on Port ${port}`);
 })
-
-
-// stock
-// price
-// category
-// rating
