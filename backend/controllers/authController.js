@@ -19,7 +19,7 @@ export const registerUser = async (req, res, next) => {
         const createdUser = await newUser.save();
         if (createdUser) {
             generateToken(res, createdUser._id);
-            res.status(201).json({ _id: createdUser._id, firstName: createdUser.firstName, lastName: createdUser.lastName, email: createdUser.email, message: "User registered successfully!" });
+            res.status(201).json({ message: "User registered successfully!" });
         } else {
             res.status(400).json({ error: "Invalid signup user data" })
         }
@@ -40,7 +40,7 @@ export const loginUser = async (req, res, next) => {
 
         if (user && (await user.matchPassword(password))) {
             generateToken(res, user._id);
-            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, addresses: user.addresses, message: "User Authorized" });
+            return res.status(201).json({ _id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email, addresses: user.addresses, message: "User Authorized" });
         } else {
             return res.status(400).json({ error: "Invalid Credentials!" });
         }

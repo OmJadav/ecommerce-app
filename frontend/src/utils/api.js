@@ -3,7 +3,9 @@ import backendUrl from './backendUrl'
 import toast from 'react-hot-toast'
 export const fetchDataApi = async (url) => {
     try {
-        const response = await axios.get(backendUrl + url)
+        const response = await axios.get(backendUrl + url, {
+            withCredentials: true
+        })
         return response.data
     } catch (error) {
         console.error("ERROR in fetching data API: " + error.message);

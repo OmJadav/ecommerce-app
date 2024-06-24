@@ -15,7 +15,6 @@ export const Loginpage = () => {
     reset,
     handleSubmit,
   } = useForm();
-  const navigate = useNavigate();
   const loginUser = async (data) => {
     try {
       const response = await axios.post(`${backendUrl}/api/auth/login`, data, {

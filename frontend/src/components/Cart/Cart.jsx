@@ -4,6 +4,7 @@ import { BsCartX } from "react-icons/bs";
 import CartItem from "./CartItem/CartItem";
 import { useContext } from "react";
 import { Context } from "../../utils/context";
+import { Link } from "react-router-dom";
 const Cart = ({ setShowCart }) => {
   const { cartItems, cartSubTotal } = useContext(Context);
   return (
@@ -34,7 +35,14 @@ const Cart = ({ setShowCart }) => {
                 <span className="text total">&#8377; {cartSubTotal} </span>
               </div>
               <div className="button">
-                <button className="checkout-cta">Checkout</button>
+                <Link to={"/checkout"}>
+                  <button
+                    className="checkout-cta"
+                    onClick={() => setShowCart(false)}
+                  >
+                    Checkout
+                  </button>
+                </Link>
               </div>
             </div>
           </>

@@ -23,8 +23,11 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { cartCount, userData } = useContext(Context);
+  const { cartCount } = useContext(Context);
   const navigate = useNavigate();
+
+  const userData = JSON.parse(localStorage?.getItem("userInfo"));
+
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 200) {
@@ -40,7 +43,6 @@ const Header = () => {
   const userLogout = () => {
     sendDataApi(`/api/auth/logout`);
     localStorage?.removeItem("userInfo");
-    localStorage?.removeItem("token-no");
     window.location.href = "/";
   };
 
@@ -53,8 +55,8 @@ const Header = () => {
         <div className="header-content">
           <ul className="left">
             <li onClick={() => navigate("/")}>Home</li>
-            <li>About</li>
-            <li>Catergories</li>
+            {/* <li>About</li> */}
+            <Link to={"/category/666c92e2f0563829fafdebf0"}>Catergories</Link>
           </ul>
           <div className="center ">Developer's Store</div>
           <div className="right">

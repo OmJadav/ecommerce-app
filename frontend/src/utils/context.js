@@ -15,16 +15,19 @@ const AppContext = ({ children }) => {
     const [cartItems, setCartItems] = useState([])
     const [cartCount, setCartCount] = useState(0)
     const [cartSubTotal, setCartSubTotal] = useState(0)
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState(null);
     const [fetchCartFlag, setFetchCartFlag] = useState(false);
 
     const userInfo = JSON.parse(localStorage?.getItem('userInfo'))
     const userId = userInfo?._id;
-
+    const { data: loggedInUserData } = useFetch(userId ? `/api/user/profile/${userId}` : null);
+    // console.log(loggedInUserData);
     useEffect(() => {
-        setUserData(userInfo)
-    }, [userId])
-
+        if (loggedInUserData) {
+            setUserData(loggedInUserData);
+        }
+    }, [loggedInUserData]);
+    // console.log(userData);
     const location = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -34,9 +37,7 @@ const AppContext = ({ children }) => {
         let count = 0;
         cartItems.forEach((item) => (count += item.quantity));
         setCartCount(count);
-
         let subTotal = 0;
-
         cartItems.forEach((item) => (subTotal += item?.product?.price * item.quantity));
         setCartSubTotal(subTotal);
     }, [cartItems]);
@@ -71,11 +72,14 @@ const AppContext = ({ children }) => {
     useEffect(() => {
         const userCartItems = async () => {
             try {
-                const response = await axios.get(`${backendUrl}/api/cart/fetch-cart/${userId}`, {
-                    withCredentials: true,
-                })
-                setCartItems(response.data)
-                return response.data
+                if (userId) {
+                    const response = await axios.get(`${backendUrl}/api/cart/fetch-cart/${userId}`, {
+                        withCredentials: true,
+                    })
+                    setCartItems(response.data)
+                    return response.data
+                }
+
             } catch (error) {
                 console.error("ERROR in fetching data API: " + error.message);
                 console.log(error.response.data.error);

@@ -26,7 +26,7 @@ export const Registerpage = () => {
       // console.log("Response Api : ", response.data);
       toast.success(response.data.message);
       window.location.href = "/auth/login";
-      console.log("User registered successfully:", response.data);
+      // console.log("User registered successfully:", response.data);
     } catch (error) {
       toast.error(error.response.data.error);
       console.error("Error registering user axios:", error);

@@ -15,6 +15,7 @@ import AdminHome from './admin/AdminHome';
 import AdminCategoryIn from './admin/AdminCategoryIn';
 import { AdminProtected } from './components/protected/AdminProtected';
 import { Toaster } from 'react-hot-toast'
+import { Checkout } from './components/Checkout/Checkout';
 function App() {
 
   return (
@@ -48,6 +49,8 @@ function userRoutes() {
         <Route path='/' element={<><Home /></>} />
         <Route path='/category/:id' element={<><Category /></>} />
         <Route path='/product/:id' element={<><SingleProduct /></>} />
+        <Route path='/checkout' element={<><Checkout /></>} />
+        <Route path='/profile' element={<><Checkout /></>} />
       </Routes>
       <Newsletter />
       <Footer />
