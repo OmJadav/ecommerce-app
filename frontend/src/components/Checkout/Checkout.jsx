@@ -4,6 +4,11 @@ import { sendDataApi } from "../../utils/api";
 import { Context } from "../../utils/context";
 import CheckoutCartView from "./CheckoutCartView";
 import { Button } from "flowbite-react";
+import toast from "react-hot-toast";
+import { loadStripe } from "@stripe/stripe-js";
+import backendUrl from "../../utils/backendUrl";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Checkout = () => {
   const {
@@ -16,11 +21,26 @@ export const Checkout = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [savings, setSavings] = useState(0);
   const [hasPromo, setHasPromo] = useState(false);
-  const { userData, cartSubTotal } = useContext(Context);
+  const { userData, cartSubTotal, cartItems } = useContext(Context);
   const [promoCodeInput, setPromoCodeInput] = useState("");
   const [promoError, setPromoError] = useState("");
-  //   console.log(userData);
+  const [promoSuccess, setPromoSuccess] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(null);
   const userId = userData?._id;
+
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const query = new URLSearchParams(location.search);
+  //   const sessionId = query.get("session_id");
+
+  //   if (sessionId) {
+  //     handleOrder(sessionId);
+  //   } else if (location.pathname === "/order-cancelled") {
+  //     toast.error("Payment was cancelled");
+  //   }
+  // }, [location]);
 
   useEffect(() => {
     setTotalAmount(cartSubTotal);
@@ -31,26 +51,30 @@ export const Checkout = () => {
       ...userData,
       addresses: [...userData?.addresses, data],
     };
-    sendDataApi(userId ? `/api/user/update-user/${userId}:` : null, update);
+    sendDataApi(userId ? `/api/user/update-user/${userId}` : null, update);
+    window.location.href = "/checkout";
   };
-  const promoCode = promoCodeInput.trim();
-  let index = promoCode.search(/\d/);
-  let textPart = promoCode.slice(0, index);
-  let numberPart = promoCode.slice(index);
+  const promoCode = promoCodeInput?.trim();
+  let index = promoCode?.search(/\d/);
+  let textPart = promoCode?.slice(0, index);
+  let numberPart = promoCode ? promoCode.slice(index) : 0;
 
   const finalAmount = () => {
     if (!hasPromo && promoCode === "first10") {
       if (index !== -1) {
         let discount = totalAmount * (parseInt(numberPart) / 100);
-        setSavings(discount);
-        setTotalAmount(totalAmount - discount);
+        setSavings(parseFloat(discount.toFixed(2)));
+        setTotalAmount(parseFloat((totalAmount - discount).toFixed(2)));
+        setPromoSuccess(
+          `You got ${numberPart} % off on your Promo Code ${promoCode}`
+        );
         setHasPromo(true);
       } else {
         setSavings(0);
         setTotalAmount(totalAmount);
       }
     } else {
-      console.log("Invalid promo code or already applied");
+      console.log("Invalid promo code");
       setPromoError("Invalid promo code");
     }
   };
@@ -58,7 +82,129 @@ export const Checkout = () => {
   const handleInputChange = (event) => {
     setPromoCodeInput(event.target.value);
   };
+  // console.log("payment method : ", paymentMethod);
+  // console.log("selected address : ", selectedAddress);
 
+  const makePayment = async (req, res) => {
+    if (selectedAddress && paymentMethod) {
+      try {
+        const stripe = await loadStripe(
+          process.env.REACT_APP_STRIPE_PUBLIC_KEY
+        );
+        const body = {
+          products: cartItems,
+          userId: userId,
+          discount: numberPart,
+          totalAmount: totalAmount,
+        };
+        const response = await fetch(`${backendUrl}/stripe/checkout-session`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        const session = await response.json();
+
+        const orderData = {
+          items: cartItems,
+          totalAmount,
+          totalItems: cartItems.length,
+          discount: numberPart,
+          user: userId,
+          selectedAddress,
+          paymentMethod,
+          paymentStatus: "pending",
+          orderStatus: "pending",
+        };
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+        // console.log(session);
+        const result = stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+        if (result.error) {
+          toast.error(result.error.message);
+        }
+      } catch (error) {
+        console.log(error.response.data.error);
+        toast.error(error.response.data.error);
+      }
+    } else {
+      toast("Select Address and Payment Method", {
+        icon: "❌",
+      });
+    }
+  };
+  const handleAddress = (e) => {
+    const selectedIndex = parseInt(e.target.value);
+    // console.log(e.target.value);
+    setSelectedAddress(userData.addresses[selectedIndex]);
+  };
+
+  const handleCashOrder = async () => {
+    if (selectedAddress && paymentMethod) {
+      const order = {
+        items: cartItems,
+        totalAmount,
+        totalItems: cartItems.length,
+        discount: numberPart,
+        user: userId,
+        selectedAddress,
+        paymentMethod,
+        paymentStatus: "pending",
+        orderStatus: "pending",
+      };
+      try {
+        const response = await axios.post(
+          `${backendUrl}/api/orders/new-order`,
+          order,
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response.data);
+        localStorage.setItem("currentOrder", JSON.stringify(response.data));
+        toast.success("Order placed successfully");
+        navigate("/order-confirm");
+        return response.data;
+      } catch (error) {
+        console.error("ERROR in sending data API: " + error.message);
+        console.log(error.response.data.error);
+        toast.error(error.response.data.error);
+      }
+    } else {
+      toast("Select Address and Payment Method", {
+        icon: "❌",
+      });
+    }
+  };
+  const handleOrder = async (sessionId) => {
+    const order = {
+      items: cartItems,
+      totalAmount,
+      totalItems: cartItems.length,
+      discount: numberPart,
+      user: userId,
+      selectedAddress,
+      paymentMethod,
+      paymentStatus: "pending",
+      orderStatus: "pending",
+    };
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/orders/new-order`,
+        order,
+        {
+          withCredentials: true,
+        }
+      );
+      localStorage.setItem("currentOrder", JSON.stringify(response.data));
+      return response.data;
+    } catch (error) {
+      console.error("ERROR in sending data API: " + error.message);
+      console.log(error.response.data.error);
+      toast.error(error.response.data.error);
+    }
+  };
   return (
     <>
       <section className="bg-white py-7 antialiased dark:bg-gray-900 md:py-7">
@@ -383,13 +529,12 @@ export const Checkout = () => {
                         <div className="flex items-start">
                           <div className="flex h-5 items-center">
                             <input
-                              id="credit-card"
-                              aria-describedby="credit-card-text"
+                              onChange={handleAddress}
+                              value={index}
+                              aria-describedby={index}
                               type="radio"
-                              name="payment-method"
-                              defaultValue=""
+                              name="address"
                               className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                              defaultChecked=""
                             />
                           </div>
                           <div className="ms-4 text-sm">
@@ -422,25 +567,25 @@ export const Checkout = () => {
                     <div className="flex items-start">
                       <div className="flex h-5 items-center">
                         <input
-                          id="credit-card"
-                          aria-describedby="credit-card-text"
+                          id="cardPayment"
+                          aria-describedby="cardPayment-text"
                           type="radio"
                           name="payment-method"
-                          defaultValue=""
+                          value="card"
                           className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                          defaultChecked=""
+                          onChange={(e) => setPaymentMethod(e.target.value)}
                         />
                       </div>
                       <div className="ms-4 text-sm">
                         <label
-                          htmlFor="credit-card"
+                          htmlFor="cardPayment"
                           className="font-medium leading-none text-gray-900 dark:text-white"
                         >
                           {" "}
                           Card Payment{" "}
                         </label>
                         <p
-                          id="credit-card-text"
+                          id="cardPayment-text"
                           className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
                         >
                           Pay with your card
@@ -452,24 +597,25 @@ export const Checkout = () => {
                     <div className="flex items-start">
                       <div className="flex h-5 items-center">
                         <input
-                          id="pay-on-delivery"
-                          aria-describedby="pay-on-delivery-text"
+                          id="cashPayment"
+                          aria-describedby="cashPayment-text"
                           type="radio"
                           name="payment-method"
-                          defaultValue=""
+                          value="cash"
+                          onChange={(e) => setPaymentMethod(e.target.value)}
                           className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
                         />
                       </div>
                       <div className="ms-4 text-sm">
                         <label
-                          htmlFor="pay-on-delivery"
+                          htmlFor="cashPayment"
                           className="font-medium leading-none text-gray-900 dark:text-white"
                         >
                           {" "}
                           Cash on delivery{" "}
                         </label>
                         <p
-                          id="pay-on-delivery"
+                          id="cashPayment-text"
                           className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
                         >
                           Pay after you got your package
@@ -531,19 +677,9 @@ export const Checkout = () => {
                       - ₹ {savings}
                     </dd>
                   </dl>
-                  {hasPromo && promoCode && (
-                    <p className="text-right text-green-500">
-                      You got {numberPart} % off on your Promo Code {promoCode}
-                    </p>
+                  {hasPromo && promoCode && promoSuccess && (
+                    <p className="text-right text-green-500">{promoSuccess}</p>
                   )}
-                  {/* <dl className="flex items-center justify-between gap-4 py-3">
-                    <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                      Tax
-                    </dt>
-                    <dd className="text-base font-medium text-gray-900 dark:text-white">
-                      ₹ 0
-                    </dd>
-                  </dl> */}
                   <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-bold text-gray-900 dark:text-white">
                       Total
@@ -556,12 +692,21 @@ export const Checkout = () => {
               </div>
 
               <div className="space-y-3">
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
-                >
-                  Proceed to Payment
-                </button>
+                {paymentMethod && paymentMethod === "card" ? (
+                  <button
+                    onClick={makePayment}
+                    className="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                  >
+                    Proceed to Card Payment
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleCashOrder}
+                    className="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                  >
+                    Place Order
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -1,5 +1,4 @@
 
-// const backendUrl = "http://localhost:5000";
-const backendUrl = "https://ecommerce-app-backend-eosin.vercel.app";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 module.exports = backendUrl

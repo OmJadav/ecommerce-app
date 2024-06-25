@@ -31,7 +31,7 @@ const products = [
 
 const CheckoutCartView = () => {
   const { cartItems } = useContext(Context);
-  console.log(cartItems);
+  // console.log(cartItems);
 
   return (
     <>
@@ -45,7 +45,7 @@ const CheckoutCartView = () => {
               <ul role="list" className="-my-6 divide-y divide-gray-200">
                 {cartItems &&
                   cartItems.map((item) => (
-                    <li key={item.id} className="flex py-6">
+                    <li key={item._id} className="flex py-6">
                       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <img
                           src={item.product.thumbnail}

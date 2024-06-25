@@ -16,6 +16,7 @@ import AdminCategoryIn from './admin/AdminCategoryIn';
 import { AdminProtected } from './components/protected/AdminProtected';
 import { Toaster } from 'react-hot-toast'
 import { Checkout } from './components/Checkout/Checkout';
+import { OrderSuccessPage } from './components/Checkout/OrderSuccessPage';
 function App() {
 
   return (
@@ -51,6 +52,7 @@ function userRoutes() {
         <Route path='/product/:id' element={<><SingleProduct /></>} />
         <Route path='/checkout' element={<><Checkout /></>} />
         <Route path='/profile' element={<><Checkout /></>} />
+        <Route path='/order-confirm' element={<><OrderSuccessPage /></>} />
       </Routes>
       <Newsletter />
       <Footer />

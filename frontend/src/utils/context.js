@@ -22,6 +22,7 @@ const AppContext = ({ children }) => {
     const userId = userInfo?._id;
     const { data: loggedInUserData } = useFetch(userId ? `/api/user/profile/${userId}` : null);
     // console.log(loggedInUserData);
+
     useEffect(() => {
         if (loggedInUserData) {
             setUserData(loggedInUserData);
@@ -143,7 +144,7 @@ const AppContext = ({ children }) => {
             handleRemoveFromCart,
             handleCartProductQuantity,
             userData,
-            setUserData
+            setUserData,
         }}>
             {children}
         </Context.Provider>
