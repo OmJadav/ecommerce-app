@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import backendUrl from "../../utils/backendUrl";
 import axios from "axios";
+import { Context } from "../../utils/context";
 
 export const OrderSuccessPage = () => {
+  const { cartItems, setCartItems } = useContext(Context);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,6 +17,9 @@ export const OrderSuccessPage = () => {
     if (sessionId) {
       // Handle successful payment
       handleOrder(sessionId);
+    }
+    if (location.pathname === "/order-confirm") {
+      setCartItems([]);
     }
   }, [location]);
 
@@ -41,9 +46,19 @@ export const OrderSuccessPage = () => {
   };
   const currentOrder = JSON.parse(localStorage.getItem("currentOrder"));
 
-  const clearLocalStorage = () => {
-    localStorage.removeItem("currentOrder");
+  const formatDateToLocal = (utcDateString) => {
+    const date = new Date(utcDateString);
+    return date.toLocaleString();
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      localStorage.removeItem("currentOrder");
+      navigate("/");
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
@@ -65,10 +80,10 @@ export const OrderSuccessPage = () => {
           <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800 mb-6 md:mb-8">
             <dl className="sm:flex items-center justify-between gap-4">
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                Date
+                Order Date & Time
               </dt>
               <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                14 May 2024
+                {formatDateToLocal(currentOrder?.order?.createdAt)}
               </dd>
             </dl>
             <dl className="sm:flex items-center justify-between gap-4">
@@ -79,20 +94,13 @@ export const OrderSuccessPage = () => {
                 {currentOrder?.order?.paymentMethod}
               </dd>
             </dl>
-            <dl className="sm:flex items-center justify-between gap-4">
-              <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                Name
-              </dt>
-              <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                Xyz
-              </dd>
-            </dl>
+
             <dl className="sm:flex items-center justify-between gap-4">
               <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
                 Address
               </dt>
               <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                {currentOrder?.order?.selectedAddress.city},
+                {currentOrder?.order?.selectedAddress.city} ,
                 {currentOrder?.order?.selectedAddress.state}
               </dd>
             </dl>
@@ -106,10 +114,7 @@ export const OrderSuccessPage = () => {
             </dl>
           </div>
           <div className="flex items-center space-x-4">
-            <div
-              onClick={clearLocalStorage}
-              className="text-white bg-purple-500 hover:bg-purple-800  font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 "
-            >
+            <div className="text-white bg-purple-500 hover:bg-purple-800  font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 ">
               Track your order
             </div>
             <div

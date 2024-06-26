@@ -8,16 +8,12 @@ import Search from "./Search/Search";
 import Cart from "../Cart/Cart";
 import { Context } from "../../utils/context";
 import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
   Menu,
   MenuButton,
   MenuItem,
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { sendDataApi } from "../../utils/api";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -94,15 +90,15 @@ const Header = () => {
                       </MenuItem>
                       <MenuItem>
                         {({ focus }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to={"/my-orders"}
                             className={classNames(
                               focus ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Orders
-                          </a>
+                          </Link>
                         )}
                       </MenuItem>
                       <MenuItem>
@@ -119,16 +115,17 @@ const Header = () => {
                           </div>
                         )}
                       </MenuItem>
-                      <MenuItem>
+                      <hr />
+                      <MenuItem disabled>
                         {({ focus }) => (
                           <a
                             href="#"
                             className={classNames(
                               focus ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "flex justify-center content-center  px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            {userData.firstName} {userData.lastName}
+                            👤 {userData.firstName} {userData.lastName}
                           </a>
                         )}
                       </MenuItem>

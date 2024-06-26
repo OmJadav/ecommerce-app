@@ -17,6 +17,8 @@ import { AdminProtected } from './components/protected/AdminProtected';
 import { Toaster } from 'react-hot-toast'
 import { Checkout } from './components/Checkout/Checkout';
 import { OrderSuccessPage } from './components/Checkout/OrderSuccessPage';
+import { CancelPage } from './components/Checkout/CancelPage';
+import { UserOrders } from './components/Orders/UserOrders';
 function App() {
 
   return (
@@ -52,7 +54,10 @@ function userRoutes() {
         <Route path='/product/:id' element={<><SingleProduct /></>} />
         <Route path='/checkout' element={<><Checkout /></>} />
         <Route path='/profile' element={<><Checkout /></>} />
+        <Route path='/my-orders' element={<><UserOrders /></>} />
         <Route path='/order-confirm' element={<><OrderSuccessPage /></>} />
+        <Route path='/order-cancelled' element={<><CancelPage /></>} />
+        <Route path='/pagenotfound' element={<><CancelPage /></>} />
       </Routes>
       <Newsletter />
       <Footer />
@@ -63,14 +68,14 @@ function adminRoutes() {
   return (
     <>
       <Header />
-      {/* <AdminProtected> */}
-      <Routes>
-        <Route path='/' element={<><AdminHome /></>} />
-        <Route path='/add-new' element={<AddProductForm />} />
-        <Route path='/update-product/:id' element={<AddProductForm />} />
-        <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
-      </Routes>
-      {/* </AdminProtected> */}
+      <AdminProtected>
+        <Routes>
+          <Route path='/' element={<><AdminHome /></>} />
+          <Route path='/add-new' element={<AddProductForm />} />
+          <Route path='/update-product/:id' element={<AddProductForm />} />
+          <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
+        </Routes>
+      </AdminProtected>
     </>
   )
 }

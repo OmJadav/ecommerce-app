@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
     totalItems: { type: Number, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     selectedAddress: { type: mongoose.Schema.Types.Mixed, required: true },
-    orderStatus: { type: String, enum: ["pending", "dispatched", "delivered", "cancelled"], default: "pending" },
+    orderStatus: { type: String, enum: ["pending", "confirmed", "dispatched", "delivered", "cancelled"], default: "pending" },
     paymentMethod: { type: String, enum: ["cash", "card"], required: true },
     paymentStatus: { type: String, enum: ["pending", "received"], default: "pending" },
 },
