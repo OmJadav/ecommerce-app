@@ -27,7 +27,7 @@ const AppContext = ({ children }) => {
         if (loggedInUserData) {
             setUserData(loggedInUserData);
         }
-    }, [loggedInUserData]);
+    }, [loggedInUserData, userData]);
     // console.log(userData);
     const location = useLocation();
     useEffect(() => {

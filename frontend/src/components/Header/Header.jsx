@@ -77,15 +77,15 @@ const Header = () => {
                     <>
                       <MenuItem>
                         {({ focus }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to={"/my-profile"}
                             className={classNames(
                               focus ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
                             Your Profile
-                          </a>
+                          </Link>
                         )}
                       </MenuItem>
                       <MenuItem>

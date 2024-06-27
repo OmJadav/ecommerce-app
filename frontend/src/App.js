@@ -19,6 +19,7 @@ import { Checkout } from './components/Checkout/Checkout';
 import { OrderSuccessPage } from './components/Checkout/OrderSuccessPage';
 import { CancelPage } from './components/Checkout/CancelPage';
 import { UserOrders } from './components/Orders/UserOrders';
+import { UserProfile } from './components/User/UserProfile';
 function App() {
 
   return (
@@ -53,7 +54,7 @@ function userRoutes() {
         <Route path='/category/:id' element={<><Category /></>} />
         <Route path='/product/:id' element={<><SingleProduct /></>} />
         <Route path='/checkout' element={<><Checkout /></>} />
-        <Route path='/profile' element={<><Checkout /></>} />
+        <Route path='/my-profile' element={<><UserProfile /></>} />
         <Route path='/my-orders' element={<><UserOrders /></>} />
         <Route path='/order-confirm' element={<><OrderSuccessPage /></>} />
         <Route path='/order-cancelled' element={<><CancelPage /></>} />
