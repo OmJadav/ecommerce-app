@@ -43,7 +43,20 @@ export const fetchOrderByUser = async (req, res) => {
         }
         res.status(200).json({ userOrder });
     } catch (error) {
-        console.log("Error in fetching orders ! ::" + err.message);
+        console.log("Error in fetching user orders ! ::" + err.message);
+        res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
+    }
+}
+
+export const fetchAllOrders = async (req, res) => {
+    try {
+        const orders = await Order.find();
+        if (orders.length < 1) {
+            return res.status(401).json({ error: "Orders are not available!" })
+        }
+        res.status(200).json({ orders });
+    } catch (error) {
+        console.log("Error in fetching All orders ! ::" + err.message);
         res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
     }
 }

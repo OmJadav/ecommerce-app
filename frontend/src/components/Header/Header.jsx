@@ -19,10 +19,10 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const { cartCount } = useContext(Context);
+  const { cartCount, userData } = useContext(Context);
   const navigate = useNavigate();
 
-  const userData = JSON.parse(localStorage?.getItem("userInfo"));
+  const userInfo = JSON.parse(localStorage?.getItem("userInfo"));
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -58,6 +58,10 @@ const Header = () => {
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
 
+            <span className="cart-icon" onClick={() => setShowCart(true)}>
+              <CgShoppingCart />
+              {!!cartCount && <span>{cartCount}</span>}
+            </span>
             <Menu as="div" className="relative ml-2 mr-2">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm ">
@@ -73,7 +77,7 @@ const Header = () => {
                 leaveTo="transform opacity-0 scale-95"
               >
                 <MenuItems className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  {userData && userData !== undefined ? (
+                  {userInfo && userInfo !== undefined ? (
                     <>
                       <MenuItem>
                         {({ focus }) => (
@@ -88,6 +92,21 @@ const Header = () => {
                           </Link>
                         )}
                       </MenuItem>
+                      {userData?.role === "ad@min#" ? (
+                        <MenuItem>
+                          {({ focus }) => (
+                            <Link
+                              to={"/admin"}
+                              className={classNames(
+                                focus ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Admin
+                            </Link>
+                          )}
+                        </MenuItem>
+                      ) : null}
                       <MenuItem>
                         {({ focus }) => (
                           <Link
@@ -125,7 +144,7 @@ const Header = () => {
                               "flex justify-center content-center  px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            👤 {userData.firstName} {userData.lastName}
+                            👤 {userInfo.firstName} {userInfo.lastName}
                           </a>
                         )}
                       </MenuItem>
@@ -148,10 +167,6 @@ const Header = () => {
                 </MenuItems>
               </Transition>
             </Menu>
-            <span className="cart-icon" onClick={() => setShowCart(true)}>
-              <CgShoppingCart />
-              {!!cartCount && <span>{cartCount}</span>}
-            </span>
           </div>
         </div>
       </header>

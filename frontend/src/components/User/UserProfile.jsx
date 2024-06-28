@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../utils/context";
 import { Button, Modal } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { sendDataApi } from "../../utils/api";
 
 export const UserProfile = () => {
-  const { userData } = useContext(Context);
+  const { userData, setUserData } = useContext(Context);
   const [openModal, setOpenModal] = useState(false);
   const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
   const userId = userData?._id;
@@ -251,13 +251,14 @@ export const UserProfile = () => {
                   Your Phone
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="phone"
                   {...register("phone", {
                     required: "Phone is required",
                     pattern: {
-                      value: /^\d{10}$/,
-                      message: "Enter 10 digit Phone Number",
+                      value: /^[6-9]\d{9}$/,
+                      message:
+                        "Phone number must be a valid 10-digit Indian number",
                     },
                   })}
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"

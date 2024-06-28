@@ -17,19 +17,18 @@ const AppContext = ({ children }) => {
     const [cartSubTotal, setCartSubTotal] = useState(0)
     const [userData, setUserData] = useState(null);
     const [fetchCartFlag, setFetchCartFlag] = useState(false);
-
+    const [userRole, setUserRole] = useState(null);
     const userInfo = JSON.parse(localStorage?.getItem('userInfo'))
     const userId = userInfo?._id;
-    const { data: loggedInUserData } = useFetch(userId ? `/api/user/profile/${userId}` : null);
+    const { data: loggedInUserData, loading: userLoading } = useFetch(userId ? `/api/user/profile/${userId}` : null);
     // console.log(loggedInUserData);
-
+    const location = useLocation();
     useEffect(() => {
         if (loggedInUserData) {
             setUserData(loggedInUserData);
         }
     }, [loggedInUserData, userData]);
-    // console.log(userData);
-    const location = useLocation();
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
@@ -80,7 +79,6 @@ const AppContext = ({ children }) => {
                     setCartItems(response.data)
                     return response.data
                 }
-
             } catch (error) {
                 console.error("ERROR in fetching data API: " + error.message);
                 console.log(error.response.data.error);
@@ -110,11 +108,6 @@ const AppContext = ({ children }) => {
         getProducts();
 
     }, []);
-    // useEffect(() => {
-    //     if (userId) {
-    //         fetchDataApi(`/api/cart/fetch-cart/${userId}`).then(setCartItems);
-    //     }
-    // }, [userId]);
 
     const getCategories = () => {
         fetchDataApi("/api/categories/allcategories").then((res) => {
@@ -145,6 +138,9 @@ const AppContext = ({ children }) => {
             handleCartProductQuantity,
             userData,
             setUserData,
+            userRole,
+            setUserRole,
+            userLoading
         }}>
             {children}
         </Context.Provider>

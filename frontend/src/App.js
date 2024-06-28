@@ -20,15 +20,18 @@ import { OrderSuccessPage } from './components/Checkout/OrderSuccessPage';
 import { CancelPage } from './components/Checkout/CancelPage';
 import { UserOrders } from './components/Orders/UserOrders';
 import { UserProfile } from './components/User/UserProfile';
+import { AdminOrders } from './admin/AdminOrders';
+import { AdminHeader } from './admin/AdminHeader';
 function App() {
 
   return (
     <BrowserRouter>
-      <Toaster />
       <AppContext>
+        <Toaster />
         <Routes>
           <Route path='/*' element={userRoutes()} />
-          <Route path='/admin/*' element={adminRoutes()} />
+          {/* <Route path='/admin/*' element={adminRoutes()} /> */}
+          <Route path='/admin/*' element={<AdminProtected>{adminRoutes()}</AdminProtected>} />
           <Route path='/auth/*' element={authRoutes()} />
         </Routes>
       </AppContext>
@@ -59,6 +62,8 @@ function userRoutes() {
         <Route path='/order-confirm' element={<><OrderSuccessPage /></>} />
         <Route path='/order-cancelled' element={<><CancelPage /></>} />
         <Route path='/pagenotfound' element={<><CancelPage /></>} />
+
+        {/* <Route path='/pagefound' element={<><Test /></>} /> */}
       </Routes>
       <Newsletter />
       <Footer />
@@ -69,14 +74,14 @@ function adminRoutes() {
   return (
     <>
       <Header />
-      <AdminProtected>
-        <Routes>
-          <Route path='/' element={<><AdminHome /></>} />
-          <Route path='/add-new' element={<AddProductForm />} />
-          <Route path='/update-product/:id' element={<AddProductForm />} />
-          <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
-        </Routes>
-      </AdminProtected>
+      <AdminHeader />
+      <Routes>
+        <Route path='/' element={<><AdminHome /></>} />
+        <Route path='/add-new' element={<AddProductForm />} />
+        <Route path='/update-product/:id' element={<AddProductForm />} />
+        <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
+        <Route path='/admin-orders' element={<><AdminOrders /></>} />
+      </Routes>
     </>
   )
 }

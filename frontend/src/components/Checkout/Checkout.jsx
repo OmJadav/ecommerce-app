@@ -28,19 +28,7 @@ export const Checkout = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(null);
   const userId = userData?._id;
-
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const query = new URLSearchParams(location.search);
-  //   const sessionId = query.get("session_id");
-
-  //   if (sessionId) {
-  //     handleOrder(sessionId);
-  //   } else if (location.pathname === "/order-cancelled") {
-  //     toast.error("Payment was cancelled");
-  //   }
-  // }, [location]);
 
   useEffect(() => {
     setTotalAmount(cartSubTotal);
