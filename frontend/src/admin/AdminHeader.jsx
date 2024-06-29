@@ -12,7 +12,7 @@ export function AdminHeader() {
           <p className="flex items-center justify-between gap-10 font-bold text-black dark:text-gray-400">
             <Link to={"/admin"}>Admin Home</Link>
             <Link to={"/admin/admin-orders"}>Admin Orders</Link>
-            <Link to={"/"}>Manage Users</Link>
+            <Link to={"/admin/admin-users"}>Manage Users</Link>
             {/* <Link to={"/"}>Contact</Link> */}
             <Link to={"/"}>User</Link>
           </p>

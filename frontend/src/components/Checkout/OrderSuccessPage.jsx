@@ -54,7 +54,7 @@ export const OrderSuccessPage = () => {
     const timer = setTimeout(() => {
       localStorage.removeItem("currentOrder");
       navigate("/");
-    }, 30000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

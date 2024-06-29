@@ -54,7 +54,7 @@ const Header = () => {
             {/* <li>About</li> */}
             <Link to={"/category/666c92e2f0563829fafdebf0"}>Catergories</Link>
           </ul>
-          <div className="center ">Developer's Store</div>
+          <div className="center ">Gadget HUB</div>
           <div className="right">
             <TbSearch onClick={() => setShowSearch(true)} />
 

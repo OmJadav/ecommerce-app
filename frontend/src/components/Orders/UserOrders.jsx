@@ -39,11 +39,156 @@ export const UserOrders = () => {
         return "bg-green-200 text-green-800";
       case "cancelled":
         return "bg-red-200 text-red-800";
+      case "received":
+        return "bg-green-200 text-green-800";
       default:
         return "bg-purple-200 text-purple-800";
     }
   };
-
+  const chooseIcon = (status) => {
+    switch (status) {
+      case "pending":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z"
+            />
+          </svg>
+        );
+      case "confirmed":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 11.917 9.724 16.5 19 7.5"
+            />
+          </svg>
+        );
+      case "dispatched":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+            />
+          </svg>
+        );
+      case "delivered":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 11.917 9.724 16.5 19 7.5"
+            />
+          </svg>
+        );
+      case "received":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 11.917 9.724 16.5 19 7.5"
+            />
+          </svg>
+        );
+      case "cancelled":
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M6 18 17.94 6M18 18 6.06 6"
+            />
+          </svg>
+        );
+      default:
+        return (
+          <svg
+            className="me-1 h-3 w-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z"
+            />
+          </svg>
+        );
+    }
+  };
   const formatDateToLocal = (utcDateString) => {
     const date = new Date(utcDateString);
     return date.toLocaleString();
@@ -53,7 +198,7 @@ export const UserOrders = () => {
     return (
       <div className="flex items-center justify-center  bg-gray-100">
         <div className="text-gray-800 text-lg text-center p-5 bg-white rounded-lg shadow-md">
-          You don't have any orders yetv
+          You don't have any orders yet!
         </div>
       </div>
     );
@@ -68,7 +213,7 @@ export const UserOrders = () => {
             className="w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-lg shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition duration-300 mb-6"
           >
             <div className="flex justify-between items-center mb-4">
-              <h5 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+              <h5 className="mb-4  md:text-xl font-bold text-gray-900 dark:text-white">
                 Order ID: #{order._id}
               </h5>
               <p className="mb-4 font-normal text-gray-700 dark:text-gray-400">
@@ -78,8 +223,9 @@ export const UserOrders = () => {
                 <span
                   className={`${chooseColor(
                     order.orderStatus
-                  )}  font-medium me-2 p-2  rounded-lg`}
+                  )} inline-flex items-center rounded px-2.5 py-0.5 font-medium`}
                 >
+                  {chooseIcon(order.orderStatus)}
                   {order.orderStatus}
                 </span>
               </p>
@@ -133,12 +279,11 @@ export const UserOrders = () => {
                   Payment Status:
                 </strong>{" "}
                 <span
-                  className={`${
-                    order.paymentStatus === "received"
-                      ? "bg-green-200 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }  font-medium me-2 px-2.5 py-0.5 rounded-full`}
+                  className={`${chooseColor(
+                    order.paymentStatus
+                  )} inline-flex items-center rounded px-2.5 py-0.5 font-medium`}
                 >
+                  {chooseIcon(order.paymentStatus)}
                   {order.paymentStatus}
                 </span>
               </p>
@@ -164,13 +309,15 @@ export const UserOrders = () => {
               </p>
             </div>
 
-            {order && order.orderStatus !== "delivered" && (
-              <div className="flex justify-end mt-1">
-                <button className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-lg hover:bg-red-700 transition duration-300">
-                  Cancel Order
-                </button>
-              </div>
-            )}
+            {order &&
+              order.orderStatus !== "delivered" &&
+              order.orderStatus !== "cancelled" && (
+                <div className="flex justify-end mt-1">
+                  <button className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-lg hover:bg-red-700 transition duration-300">
+                    Cancel Order
+                  </button>
+                </div>
+              )}
           </div>
         ))}
     </div>

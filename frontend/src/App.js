@@ -22,6 +22,7 @@ import { UserOrders } from './components/Orders/UserOrders';
 import { UserProfile } from './components/User/UserProfile';
 import { AdminOrders } from './admin/AdminOrders';
 import { AdminHeader } from './admin/AdminHeader';
+import ManageUsers from './admin/ManageUsers';
 function App() {
 
   return (
@@ -81,6 +82,7 @@ function adminRoutes() {
         <Route path='/update-product/:id' element={<AddProductForm />} />
         <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
         <Route path='/admin-orders' element={<><AdminOrders /></>} />
+        <Route path='/admin-users' element={<><ManageUsers /></>} />
       </Routes>
     </>
   )

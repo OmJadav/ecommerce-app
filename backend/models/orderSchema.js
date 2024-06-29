@@ -9,7 +9,7 @@ const orderSchema = new mongoose.Schema({
     selectedAddress: { type: mongoose.Schema.Types.Mixed, required: true },
     orderStatus: { type: String, enum: ["pending", "confirmed", "dispatched", "delivered", "cancelled"], default: "pending" },
     paymentMethod: { type: String, enum: ["cash", "card"], required: true },
-    paymentStatus: { type: String, enum: ["pending", "received"], default: "pending" },
+    paymentStatus: { type: String, enum: ["pending", "received", "cancelled"], default: "pending" },
 },
     { timestamps: true }
 );

@@ -15,10 +15,9 @@ export const fetchDataApi = async (url) => {
 }
 export const sendDataApi = async (url, newData) => {
     try {
-        const response = await axios.post(backendUrl + url, newData, {
-            withCredentials: true,
-        })
+        const response = await axios.post(backendUrl + url, newData, { withCredentials: true, })
         // console.log(response.data);
+        toast.success(response.data.message)
         return response.data
     } catch (error) {
         console.error("ERROR in sending data API: " + error.message);
