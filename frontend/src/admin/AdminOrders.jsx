@@ -413,6 +413,7 @@ export const AdminOrders = () => {
                       >
                         Order Id : #{selectedOrder._id}
                       </DialogTitle>
+                      <p>Discount : {selectedOrder.discount} %</p>
                       <div className="cart-products">
                         {selectedOrder &&
                           selectedOrder.items?.map((item) => (

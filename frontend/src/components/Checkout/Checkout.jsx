@@ -55,7 +55,7 @@ export const Checkout = () => {
         const response = await axios.get(`${backendUrl}/api/codes/promocodes`, {
           withCredentials: true,
         });
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         setPromoCode(response.data[0] || null);
       } catch (error) {
         toast.error("Failed to fetch promocodes");
@@ -163,7 +163,7 @@ export const Checkout = () => {
             withCredentials: true,
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("currentOrder", JSON.stringify(response.data));
         toast.success("Order placed successfully");
         navigate("/order-confirm");
