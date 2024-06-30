@@ -23,6 +23,7 @@ import { UserProfile } from './components/User/UserProfile';
 import { AdminOrders } from './admin/AdminOrders';
 import { AdminHeader } from './admin/AdminHeader';
 import ManageUsers from './admin/ManageUsers';
+import { PromoCode } from './admin/PromoCode';
 function App() {
 
   return (
@@ -79,6 +80,7 @@ function adminRoutes() {
       <Routes>
         <Route path='/' element={<><AdminHome /></>} />
         <Route path='/add-new' element={<AddProductForm />} />
+        <Route path='/promocode' element={<PromoCode />} />
         <Route path='/update-product/:id' element={<AddProductForm />} />
         <Route path='/admin-category/:id' element={<><AdminCategoryIn /></>} />
         <Route path='/admin-orders' element={<><AdminOrders /></>} />

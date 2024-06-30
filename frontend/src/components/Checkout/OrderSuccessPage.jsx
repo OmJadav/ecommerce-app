@@ -51,13 +51,19 @@ export const OrderSuccessPage = () => {
     return date.toLocaleString();
   };
   useEffect(() => {
+    // Set a timer to clear currentOrder and navigate to home after 10 seconds
     const timer = setTimeout(() => {
       localStorage.removeItem("currentOrder");
       navigate("/");
-    }, 2000);
+    }, 10000);
 
-    return () => clearTimeout(timer);
-  }, []);
+    // Clear currentOrder and navigate immediately if location changes
+    return () => {
+      clearTimeout(timer);
+      localStorage.removeItem("currentOrder");
+      navigate("/");
+    };
+  }, [location]);
 
   return (
     <>

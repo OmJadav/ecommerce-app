@@ -8,9 +8,9 @@ import {
   FaPinterest,
   FaCartPlus,
 } from "react-icons/fa";
+import { Rating } from "flowbite-react";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import { useContext, useEffect, useState } from "react";
-import { fetchDataApi } from "../../utils/api";
 import { useParams } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
 import { Carousel } from "flowbite-react";
@@ -66,34 +66,66 @@ const SingleProduct = () => {
                 <span>{quantity}</span>
                 <span onClick={incrementQuantity}>+</span>
               </div>
-              <button
-                className="add-to-cart-button"
-                onClick={() => {
-                  handleAddToCart(product, quantity);
-                }}
-              >
-                <FaCartPlus size={20} />
-                ADD TO CART
-              </button>
+              {product.stock > 0 ? (
+                <button
+                  className="add-to-cart-button"
+                  onClick={() => {
+                    handleAddToCart(product, quantity);
+                  }}
+                >
+                  <FaCartPlus size={20} />
+                  ADD TO CART
+                </button>
+              ) : (
+                <button
+                  className="add-to-cart-button"
+                  onClick={() => {
+                    handleAddToCart(product, quantity);
+                  }}
+                  disabled={true}
+                >
+                  OUT OF STOCK
+                </button>
+              )}
             </div>
 
             <span className="divider" />
 
             <div className="info-item">
-              <span className="text-bold">
-                Category :{" "}
+              <div className="text-bold">
+                Category:{" "}
                 <span className="capitalize">{product?.category?.name}</span>
-              </span>
-              <span className="text-bold">
-                Share:
-                <span className="social-icons">
-                  <FaFacebookF size={16} />
-                  <FaTwitter size={16} />
-                  <FaInstagram size={16} />
-                  <FaLinkedinIn size={16} />
-                  <FaPinterest size={16} />
+              </div>
+              <div className="reviews mb-5">
+                {product?.rating > 0 ? (
+                  <Rating>
+                    {[...Array(5)].map((_, index) => (
+                      <Rating.Star
+                        key={index}
+                        filled={index < product.rating}
+                      />
+                    ))}
+                    <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                      ({product?.rating})
+                    </p>
+                  </Rating>
+                ) : (
+                  <span>No reviews yet.</span>
+                )}
+              </div>
+              <div className="text-bold">
+                Stock :
+                <span
+                  className={`stock ${
+                    product.stock > 0
+                      ? "in-stock bg-green-200 text-green-800"
+                      : "out-of-stock bg-red-200 text-red-800"
+                  } p-1 rounded-lg ml-1 font-bold`}
+                >
+                  {" "}
+                  {product.stock > 0 ? "In Stock" : "Out of Stock"}
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>

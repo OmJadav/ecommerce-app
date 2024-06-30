@@ -36,7 +36,7 @@ export const fetchOrderByUser = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ error: "Invalid user ID format" });
         }
-        const userOrder = await Order.find({ user: userId })
+        const userOrder = await Order.find({ user: userId }).sort({ createdAt: -1 });
 
         if (userOrder.length === 0) {
             return res.status(404).json({ error: "No orders were made!" });
@@ -80,6 +80,33 @@ export const updateOrder = async (req, res) => {
         res.status(200).json({ message: "Order status updated ", order });
     } catch (err) {
         console.log("Error in updating order ! ::" + err.message);
+        res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
+    }
+}
+
+
+export const cancelOrderByUser = async (req, res) => {
+    try {
+        const { orderId, userId } = req.body;
+        if (!orderId || !userId) {
+            return res.status(400).json({ error: "Invalid request data" });
+        }
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ error: "Order not found" });
+        }
+        if (order.user.toString() !== userId) {
+            return res.status(403).json({ error: "You are not authorized to cancel this order" });
+        }
+        if (order.orderStatus === 'delivered') {
+            return res.status(400).json({ error: "Order cannot be cancelled at this stage" });
+        }
+        order.orderStatus = 'cancelled';
+        order.paymentStatus = 'cancelled';
+        await order.save();
+        res.status(200).json({ message: "Order cancelled successfully" });
+    } catch (err) {
+        console.log("Error in cancelling order ! ::" + err.message);
         res.status(501).json({ error: "INTERNAL SERVER ERROR!" })
     }
 }

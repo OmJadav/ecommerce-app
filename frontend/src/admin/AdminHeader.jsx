@@ -14,7 +14,7 @@ export function AdminHeader() {
             <Link to={"/admin/admin-orders"}>Admin Orders</Link>
             <Link to={"/admin/admin-users"}>Manage Users</Link>
             {/* <Link to={"/"}>Contact</Link> */}
-            <Link to={"/"}>User</Link>
+            <Link to={"/admin/promocode"}>Promocode</Link>
           </p>
         </div>
         <Banner.CollapseButton

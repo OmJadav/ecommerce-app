@@ -21,8 +21,9 @@ export const Checkout = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [savings, setSavings] = useState(0);
   const [hasPromo, setHasPromo] = useState(false);
-  const { userData, cartSubTotal, cartItems } = useContext(Context);
+  const { userData, cartSubTotal, cartItems, promocodes } = useContext(Context);
   const [promoCodeInput, setPromoCodeInput] = useState("");
+  const [Promocode, setPromoCode] = useState("");
   const [promoError, setPromoError] = useState("");
   const [promoSuccess, setPromoSuccess] = useState("");
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -42,13 +43,29 @@ export const Checkout = () => {
     sendDataApi(userId ? `/api/user/update-user/${userId}` : null, update);
     window.location.href = "/checkout";
   };
-  const promoCode = promoCodeInput?.trim();
+  const promoCode = promoCodeInput?.toLowerCase().trim();
   let index = promoCode?.search(/\d/);
   let textPart = promoCode?.slice(0, index);
   let numberPart = promoCode ? promoCode.slice(index) : 0;
 
+  //promocode logic
+  useEffect(() => {
+    const fetchPromocodes = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/codes/promocodes`, {
+          withCredentials: true,
+        });
+        console.log(response.data[0]);
+        setPromoCode(response.data[0] || null);
+      } catch (error) {
+        toast.error("Failed to fetch promocodes");
+      }
+    };
+    fetchPromocodes();
+  }, [setPromoCode]);
+
   const finalAmount = () => {
-    if (!hasPromo && promoCode === "first10") {
+    if (!hasPromo && promoCode === Promocode?.promocode) {
       if (index !== -1) {
         let discount = totalAmount * (parseInt(numberPart) / 100);
         setSavings(parseFloat(discount.toFixed(2)));
@@ -70,9 +87,6 @@ export const Checkout = () => {
   const handleInputChange = (event) => {
     setPromoCodeInput(event.target.value);
   };
-  // console.log("payment method : ", paymentMethod);
-  // console.log("selected address : ", selectedAddress);
-
   const makePayment = async (req, res) => {
     if (selectedAddress && paymentMethod) {
       try {
