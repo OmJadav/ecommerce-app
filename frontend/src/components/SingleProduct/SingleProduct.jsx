@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
 import { Carousel } from "flowbite-react";
 import { Context } from "../../utils/context";
+import Loader from "../Loader/Loader";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
@@ -22,13 +23,9 @@ const SingleProduct = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/products/product/${id}`);
   const { handleAddToCart } = useContext(Context);
-  if (!data)
-    return (
-      // <h1 className="text-3xl text-center text-red-500">
-      //   Something went wrong
-      // </h1>
-      null
-    );
+  if (!data) {
+    return <Loader />;
+  }
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import Loader from "../components/Loader/Loader";
 export const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [editOrderId, setEditOrderId] = useState(null);
@@ -213,6 +214,9 @@ export const AdminOrders = () => {
     };
     fetchAllOrders();
   }, [handleStatusChange]);
+  if (orders < 1) {
+    return <Loader />;
+  }
   return (
     <>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">

@@ -9,6 +9,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import backendUrl from "../utils/backendUrl";
 import { useForm } from "react-hook-form";
 import { sendDataApi } from "../utils/api";
+import Loader from "../components/Loader/Loader";
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [userData, setUserData] = useState(null);
@@ -71,6 +72,9 @@ const ManageUsers = () => {
     };
     fetchUsers();
   }, [openModal, deleteUserData]);
+  if (users < 1) {
+    return <Loader />;
+  }
   return (
     <>
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">

@@ -495,7 +495,7 @@ export const Checkout = () => {
                       </Button>
                       <button
                         type="submit"
-                        className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                        className="flex w- items-center justify-center gap-2 rounded-lg border border-gray-200 bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
                       >
                         <svg
                           className="h-5 w-5"
@@ -700,14 +700,14 @@ export const Checkout = () => {
                 {paymentMethod && paymentMethod === "card" ? (
                   <button
                     onClick={makePayment}
-                    className="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                    className="flex w-full items-center justify-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                   >
                     Proceed to Card Payment
                   </button>
                 ) : (
                   <button
                     onClick={handleCashOrder}
-                    className="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4  focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                    className="flex w-full items-center justify-center rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4  focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                   >
                     Place Order
                   </button>

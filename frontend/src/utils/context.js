@@ -5,6 +5,7 @@ import useFetch from '../components/Hooks/useFetch';
 import backendUrl from './backendUrl';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Loader from '../components/Loader/Loader';
 
 export const Context = createContext();
 
@@ -109,18 +110,25 @@ const AppContext = ({ children }) => {
 
     }, []);
 
-    const getCategories = () => {
-        fetchDataApi("/api/categories/allcategories").then((res) => {
-            // console.log(res);
+    const getCategories = async () => {
+        try {
+            const res = await fetchDataApi("/api/categories/allcategories")
             setCategories(res.categories);
-        });
+        } catch (error) {
+            console.error(error);
+        } finally {
+        }
     };
-    const getProducts = () => {
-        fetchDataApi("/api/products/allproducts").then((res) => {
-            // console.log(res);
+    const getProducts = async () => {
+        try {
+            const res = await fetchDataApi("/api/products/allproducts");
             setProducts(res);
-        });
+        } catch (error) {
+            console.error(error);
+        } finally {
+        }
     };
+
     return (
         <Context.Provider value={{
             categories,
