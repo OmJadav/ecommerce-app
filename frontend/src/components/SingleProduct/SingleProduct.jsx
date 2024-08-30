@@ -1,13 +1,5 @@
 import "./SingleProduct.scss";
-// import prod from "../../assets/products/earbuds-prod-2.webp";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaPinterest,
-  FaCartPlus,
-} from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
 import { Rating } from "flowbite-react";
 import RelatedProducts from "./RelatedProducts/RelatedProducts";
 import { useContext, useEffect, useState } from "react";
@@ -19,7 +11,8 @@ import Loader from "../Loader/Loader";
 
 const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
-
+  const userInfo = JSON.parse(localStorage?.getItem("userInfo"));
+  const userId = userInfo?._id;
   const { id } = useParams();
   const { data } = useFetch(`/api/products/product/${id}`);
   const { handleAddToCart } = useContext(Context);
@@ -63,25 +56,19 @@ const SingleProduct = () => {
                 <span>{quantity}</span>
                 <span onClick={incrementQuantity}>+</span>
               </div>
-              {product.stock > 0 ? (
+              {userId && product.stock > 0 ? (
                 <button
                   className="add-to-cart-button"
-                  onClick={() => {
-                    handleAddToCart(product, quantity);
-                  }}
+                  onClick={() => handleAddToCart(product, quantity)}
                 >
                   <FaCartPlus size={20} />
                   ADD TO CART
                 </button>
               ) : (
-                <button
-                  className="add-to-cart-button"
-                  onClick={() => {
-                    handleAddToCart(product, quantity);
-                  }}
-                  disabled={true}
-                >
-                  OUT OF STOCK
+                <button className="add-to-cart-button" disabled={true}>
+                  {product.stock > 0
+                    ? "Please Login to add in cart"
+                    : "OUT OF STOCK"}
                 </button>
               )}
             </div>
