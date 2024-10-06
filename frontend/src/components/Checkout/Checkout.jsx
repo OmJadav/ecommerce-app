@@ -19,6 +19,7 @@ export const Checkout = () => {
     handleSubmit,
   } = useForm();
   const [totalAmount, setTotalAmount] = useState(0);
+  const [showForm, setShowForm] = useState(false);
   const [savings, setSavings] = useState(0);
   const [hasPromo, setHasPromo] = useState(false);
   const { userData, cartSubTotal, cartItems, promocodes } = useContext(Context);
@@ -65,6 +66,9 @@ export const Checkout = () => {
   }, [setPromoCode]);
 
   const finalAmount = () => {
+    setPromoError("");
+    setPromoSuccess("");
+    setHasPromo(false);
     if (!hasPromo && promoCode === Promocode?.promocode) {
       if (index !== -1) {
         let discount = totalAmount * (parseInt(numberPart) / 100);
@@ -207,6 +211,10 @@ export const Checkout = () => {
       toast.error(error.response.data.error);
     }
   };
+
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
   return (
     <>
       <section className="bg-white py-7 antialiased dark:bg-gray-900 md:py-7">
@@ -214,317 +222,335 @@ export const Checkout = () => {
           <h1 className="text-center text-3xl font-bold">Checkout</h1>
           <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
             <div className="min-w-0 flex-1 space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Shipping Details
-                </h2>
-                <form
-                  noValidate
-                  onSubmit={handleSubmit((data) => {
-                    // reset();
-                    handleAddAddress(data);
-                    console.log(data);
-                  })}
-                >
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Your Full Name{" "}
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        {...register("name", {
-                          required: "Name is required",
-                        })}
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Enter Your name"
-                      />
-                      {errors.name && (
-                        <p className="text-red-500">{errors.name.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Your email*{" "}
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        {...register("email", {
-                          required: "Email is Required",
-                          pattern: {
-                            value: /\b\w+@[\w.-]+\.\w{2,4}\b/gi,
-                            message: "Email not valid",
-                          },
-                        })}
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="xyz@example.com"
-                      />
-                      {errors.email && (
-                        <p className="text-red-500">{errors.email.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <div className="mb-2 flex items-center gap-2">
+              {showForm && (
+                <div className="space-y-4">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Shipping Details
+                  </h2>
+                  <form
+                    noValidate
+                    onSubmit={handleSubmit((data) => {
+                      // reset();
+                      handleAddAddress(data);
+                      console.log(data);
+                    })}
+                  >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
                         <label
-                          htmlFor="house_no"
+                          htmlFor="name"
                           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Your House/Apartment No. and Name*{" "}
+                          Your Full Name{" "}
                         </label>
+                        <input
+                          type="text"
+                          id="name"
+                          {...register("name", {
+                            required: "Name is required",
+                          })}
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Enter Your name"
+                        />
+                        {errors.name && (
+                          <p className="text-red-500">{errors.name.message}</p>
+                        )}
                       </div>
-                      <input
-                        type="text"
-                        {...register("house_no", {
-                          required: "House number/name is required",
-                        })}
-                        id="house_no"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Example. A-201 , Sky city"
-                      />
-                      {errors.house_no && (
-                        <p className="text-red-500">
-                          {errors.house_no.message}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <div className="mb-2 flex items-center gap-2">
+                      <div>
                         <label
-                          htmlFor="area"
+                          htmlFor="email"
                           className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                         >
                           {" "}
-                          Area / Locality{" "}
+                          Your email*{" "}
                         </label>
+                        <input
+                          type="email"
+                          id="email"
+                          {...register("email", {
+                            required: "Email is Required",
+                            pattern: {
+                              value: /\b\w+@[\w.-]+\.\w{2,4}\b/gi,
+                              message: "Email not valid",
+                            },
+                          })}
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="xyz@example.com"
+                        />
+                        {errors.email && (
+                          <p className="text-red-500">{errors.email.message}</p>
+                        )}
                       </div>
-                      <input
-                        type="text"
-                        id="area"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Area name"
-                        {...register("area", {
-                          required: "Area is required",
-                        })}
-                      />
-                      {errors.area && (
-                        <p className="text-red-500">{errors.area.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="landmark"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Land Mark{" "}
-                      </label>
-                      <input
-                        type="text"
-                        id="landmark"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Famous/Popular place"
-                        {...register("landmark", {
-                          required: "landmark is required",
-                        })}
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="city"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        City{" "}
-                      </label>
-                      <input
-                        type="text"
-                        id="city"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Enter city"
-                        {...register("city", {
-                          required: "City is required",
-                        })}
-                      />
-                      {errors.city && (
-                        <p className="text-red-500">{errors.city.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="state"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        State{" "}
-                      </label>
-                      <input
-                        type="text"
-                        id="state"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Enter State name"
-                        {...register("state", {
-                          required: "State is required",
-                        })}
-                      />
-                      {errors.state && (
-                        <p className="text-red-500">{errors.state.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="pin"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Pin code/Zip code (6 digit){" "}
-                      </label>
-                      <input
-                        type="number"
-                        id="pin"
-                        className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
-                        placeholder="Enter your area pin code"
-                        {...register("pin", {
-                          required: "PIN is required",
-                          pattern: {
-                            value: /^\d{6}$/,
-                            message: "PIN must be exactly 6 digits",
-                          },
-                        })}
-                      />
-                      {errors.pin && (
-                        <p className="text-red-500">{errors.pin.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Phone Number*{" "}
-                      </label>
-                      <div className="flex items-center">
-                        <div
-                          id="dropdown-phone-button-3"
-                          className="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white "
-                          type="button"
+                      <div>
+                        <div className="mb-2 flex items-center gap-2">
+                          <label
+                            htmlFor="house_no"
+                            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            Your House/Apartment No. and Name*{" "}
+                          </label>
+                        </div>
+                        <input
+                          type="text"
+                          {...register("house_no", {
+                            required: "House number/name is required",
+                          })}
+                          id="house_no"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Example. A-201 , Sky city"
+                        />
+                        {errors.house_no && (
+                          <p className="text-red-500">
+                            {errors.house_no.message}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <div className="mb-2 flex items-center gap-2">
+                          <label
+                            htmlFor="area"
+                            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            Area / Locality{" "}
+                          </label>
+                        </div>
+                        <input
+                          type="text"
+                          id="area"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Area name"
+                          {...register("area", {
+                            required: "Area is required",
+                          })}
+                        />
+                        {errors.area && (
+                          <p className="text-red-500">{errors.area.message}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="landmark"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Land Mark{" "}
+                        </label>
+                        <input
+                          type="text"
+                          id="landmark"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Famous/Popular place"
+                          {...register("landmark", {
+                            required: "landmark is required",
+                          })}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="city"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          City{" "}
+                        </label>
+                        <input
+                          type="text"
+                          id="city"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Enter city"
+                          {...register("city", {
+                            required: "City is required",
+                          })}
+                        />
+                        {errors.city && (
+                          <p className="text-red-500">{errors.city.message}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="state"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          State{" "}
+                        </label>
+                        <input
+                          type="text"
+                          id="state"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Enter State name"
+                          {...register("state", {
+                            required: "State is required",
+                          })}
+                        />
+                        {errors.state && (
+                          <p className="text-red-500">{errors.state.message}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="pin"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Pin code/Zip code (6 digit){" "}
+                        </label>
+                        <input
+                          type="number"
+                          id="pin"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 "
+                          placeholder="Enter your area pin code"
+                          {...register("pin", {
+                            required: "PIN is required",
+                            pattern: {
+                              value: /^\d{6}$/,
+                              message: "PIN must be exactly 6 digits",
+                            },
+                          })}
+                        />
+                        {errors.pin && (
+                          <p className="text-red-500">{errors.pin.message}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Phone Number*{" "}
+                        </label>
+                        <div className="flex items-center">
+                          <div
+                            id="dropdown-phone-button-3"
+                            className="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white "
+                            type="button"
+                          >
+                            <svg
+                              fill="none"
+                              aria-hidden="true"
+                              className="me-2 h-4 w-4"
+                              viewBox="0 0 20 15"
+                            >
+                              <rect width="20" height="5" fill="#FF9933" />
+                              <rect
+                                width="20"
+                                height="5"
+                                y="5"
+                                fill="#FFFFFF"
+                              />
+                              <rect
+                                width="20"
+                                height="5"
+                                y="10"
+                                fill="#138808"
+                              />
+                              <circle
+                                cx="10"
+                                cy="7.5"
+                                r="2"
+                                fill="none"
+                                stroke="#000080"
+                                strokeWidth="0.5"
+                              />
+                              <g stroke="#000080" strokeWidth="0.2">
+                                <line x1="10" y1="7.5" x2="10" y2="5.5" />
+                                <line x1="10" y1="7.5" x2="10.588" y2="5.588" />
+                                <line x1="10" y1="7.5" x2="11.176" y2="6.0" />
+                                <line x1="10" y1="7.5" x2="11.588" y2="6.588" />
+                                <line x1="10" y1="7.5" x2="12" y2="7.0" />
+                                <line x1="10" y1="7.5" x2="12.176" y2="7.5" />
+                                <line x1="10" y1="7.5" x2="12" y2="8.0" />
+                                <line x1="10" y1="7.5" x2="11.588" y2="8.412" />
+                                <line x1="10" y1="7.5" x2="11.176" y2="9.0" />
+                                <line x1="10" y1="7.5" x2="10.588" y2="9.412" />
+                                <line x1="10" y1="7.5" x2="10" y2="9.5" />
+                                <line x1="10" y1="7.5" x2="9.412" y2="9.412" />
+                                <line x1="10" y1="7.5" x2="8.824" y2="9.0" />
+                                <line x1="10" y1="7.5" x2="8.412" y2="8.412" />
+                                <line x1="10" y1="7.5" x2="8" y2="8.0" />
+                                <line x1="10" y1="7.5" x2="7.824" y2="7.5" />
+                                <line x1="10" y1="7.5" x2="8" y2="7.0" />
+                                <line x1="10" y1="7.5" x2="8.412" y2="6.588" />
+                                <line x1="10" y1="7.5" x2="8.824" y2="6.0" />
+                                <line x1="10" y1="7.5" x2="9.412" y2="5.588" />
+                                <line x1="10" y1="7.5" x2="10" y2="5.5" />
+                                <line x1="10" y1="7.5" x2="10.588" y2="5.588" />
+                                <line x1="10" y1="7.5" x2="11.176" y2="6.0" />
+                                <line x1="10" y1="7.5" x2="11.588" y2="6.588" />
+                              </g>
+                            </svg>
+                            +91
+                          </div>
+                          <div className="relative w-full">
+                            <input
+                              type="number"
+                              id="phone"
+                              className="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500"
+                              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                              placeholder="10 digits Mobile number"
+                              {...register("phone", {
+                                required: "Phone number is required",
+                                pattern: {
+                                  value: /^[6-9]\d{9}$/,
+                                  message:
+                                    "Phone number must be a valid 10-digit Indian number",
+                                },
+                              })}
+                            />
+                          </div>
+                        </div>
+                        {errors.phone && (
+                          <p className="text-red-500">{errors.phone.message}</p>
+                        )}
+                      </div>
+                      {/* <div className="sm:col-span-2"> */}
+                      <div className="sm:col-span-2 flex items-center gap-4">
+                        <Button color={"light"} type="reset">
+                          Reset
+                        </Button>
+                        <button
+                          type="submit"
+                          className="flex w- items-center justify-center gap-2 rounded-lg border border-gray-200 bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
                         >
                           <svg
-                            fill="none"
+                            className="h-5 w-5"
                             aria-hidden="true"
-                            className="me-2 h-4 w-4"
-                            viewBox="0 0 20 15"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={24}
+                            height={24}
+                            fill="none"
+                            viewBox="0 0 24 24"
                           >
-                            <rect width="20" height="5" fill="#FF9933" />
-                            <rect width="20" height="5" y="5" fill="#FFFFFF" />
-                            <rect width="20" height="5" y="10" fill="#138808" />
-                            <circle
-                              cx="10"
-                              cy="7.5"
-                              r="2"
-                              fill="none"
-                              stroke="#000080"
-                              strokeWidth="0.5"
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 12h14m-7 7V5"
                             />
-                            <g stroke="#000080" strokeWidth="0.2">
-                              <line x1="10" y1="7.5" x2="10" y2="5.5" />
-                              <line x1="10" y1="7.5" x2="10.588" y2="5.588" />
-                              <line x1="10" y1="7.5" x2="11.176" y2="6.0" />
-                              <line x1="10" y1="7.5" x2="11.588" y2="6.588" />
-                              <line x1="10" y1="7.5" x2="12" y2="7.0" />
-                              <line x1="10" y1="7.5" x2="12.176" y2="7.5" />
-                              <line x1="10" y1="7.5" x2="12" y2="8.0" />
-                              <line x1="10" y1="7.5" x2="11.588" y2="8.412" />
-                              <line x1="10" y1="7.5" x2="11.176" y2="9.0" />
-                              <line x1="10" y1="7.5" x2="10.588" y2="9.412" />
-                              <line x1="10" y1="7.5" x2="10" y2="9.5" />
-                              <line x1="10" y1="7.5" x2="9.412" y2="9.412" />
-                              <line x1="10" y1="7.5" x2="8.824" y2="9.0" />
-                              <line x1="10" y1="7.5" x2="8.412" y2="8.412" />
-                              <line x1="10" y1="7.5" x2="8" y2="8.0" />
-                              <line x1="10" y1="7.5" x2="7.824" y2="7.5" />
-                              <line x1="10" y1="7.5" x2="8" y2="7.0" />
-                              <line x1="10" y1="7.5" x2="8.412" y2="6.588" />
-                              <line x1="10" y1="7.5" x2="8.824" y2="6.0" />
-                              <line x1="10" y1="7.5" x2="9.412" y2="5.588" />
-                              <line x1="10" y1="7.5" x2="10" y2="5.5" />
-                              <line x1="10" y1="7.5" x2="10.588" y2="5.588" />
-                              <line x1="10" y1="7.5" x2="11.176" y2="6.0" />
-                              <line x1="10" y1="7.5" x2="11.588" y2="6.588" />
-                            </g>
                           </svg>
-                          +91
-                        </div>
-                        <div className="relative w-full">
-                          <input
-                            type="number"
-                            id="phone"
-                            className="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                            placeholder="10 digits Mobile number"
-                            {...register("phone", {
-                              required: "Phone number is required",
-                              pattern: {
-                                value: /^[6-9]\d{9}$/,
-                                message:
-                                  "Phone number must be a valid 10-digit Indian number",
-                              },
-                            })}
-                          />
-                        </div>
+                          Add new address
+                        </button>
                       </div>
-                      {errors.phone && (
-                        <p className="text-red-500">{errors.phone.message}</p>
-                      )}
                     </div>
-                    {/* <div className="sm:col-span-2"> */}
-                    <div className="sm:col-span-2 flex items-center gap-4">
-                      <Button color={"light"} type="reset">
-                        Reset
-                      </Button>
-                      <button
-                        type="submit"
-                        className="flex w- items-center justify-center gap-2 rounded-lg border border-gray-200 bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                      >
-                        <svg
-                          className="h-5 w-5"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width={24}
-                          height={24}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h14m-7 7V5"
-                          />
-                        </svg>
-                        Add new address
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
+              )}
               <div className="space-y-4">
+                <button
+                  onClick={toggleForm}
+                  className="flex w- items-center justify-center gap-2 rounded-lg border border-gray-200 bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                >
+                  {showForm ? "Hide form" : "+ Add New Address"}
+                </button>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Your Addresses
                 </h3>
-                {userData && (
+                {userData && userData.addresses.length > 0 ? (
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     {userData?.addresses?.map((a, index) => (
                       <div
@@ -561,11 +587,13 @@ export const Checkout = () => {
                       </div>
                     ))}
                   </div>
+                ) : (
+                  <p className="text-center">You have no saved addresses </p>
                 )}
               </div>
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Payment
+                  Payment <span className="text-sm">(select one)</span>
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">

@@ -1,12 +1,13 @@
 import "./Banner.scss";
 import BannerImg from "../../../assets/banner-img.png";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
     <div className="hero-banner">
       <div className="content">
         <div className="text-content">
-          <h1>Soon!</h1>
+          <h1>New!</h1>
           <p>
             Discover the latest in electronic gadgets! Stay ahead with the
             newest trends in earbuds, headphones, smartwatches, and speakers.
@@ -20,7 +21,9 @@ const Banner = () => {
             >
               Read More
             </a>
-            <div className="banner-cta v2">Shop Now</div>
+            <Link to={"/product/67029566b1698514bb71a425"}>
+              <div className="banner-cta v2">Shop Now</div>
+            </Link>
           </div>
         </div>
         <img

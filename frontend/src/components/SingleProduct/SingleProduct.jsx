@@ -21,7 +21,9 @@ const SingleProduct = () => {
   }
 
   const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1);
+    }
   };
   const decrementQuantity = () => {
     setQuantity((prevState) => {
@@ -32,6 +34,7 @@ const SingleProduct = () => {
   const product = data?.product;
   const { thumbnail, images } = product;
   const carouselImages = [thumbnail, ...images];
+
   return (
     <div className="single-product-main-content">
       <div className="layout">

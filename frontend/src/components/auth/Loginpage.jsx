@@ -76,6 +76,7 @@ export const Loginpage = () => {
                     {errors.email && (
                       <p className="text-red-500">{errors.email.message}</p>
                     )}
+                    <p>test user (admin): testuser@gmail.com</p>
                   </div>
                 </div>
 
@@ -96,6 +97,7 @@ export const Loginpage = () => {
                         required: true,
                       }}
                     />
+                    <p>pass : 1234</p>
                     {errors.password && (
                       <p className="text-red-500">{errors.password.message}</p>
                     )}
@@ -118,9 +120,9 @@ export const Loginpage = () => {
                   </Link>
                 </h1>
               </div>
-              <div className="text-center underline mt-2">
+              {/* <div className="text-center underline mt-2">
                 <a href="www.google.com"> Forgot password ? </a>
-              </div>
+              </div> */}
             </div>
             <SideImage />
           </div>

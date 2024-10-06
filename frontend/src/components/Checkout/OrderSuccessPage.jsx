@@ -45,7 +45,7 @@ export const OrderSuccessPage = () => {
       toast.error("Failed to place order");
     }
   };
-  const currentOrder = JSON.parse(localStorage.getItem("currentOrder"));
+  const currentOrder = JSON.parse(localStorage?.getItem("currentOrder"));
 
   const formatDateToLocal = (utcDateString) => {
     const date = new Date(utcDateString);
@@ -55,7 +55,7 @@ export const OrderSuccessPage = () => {
     const timer = setTimeout(() => {
       localStorage.removeItem("currentOrder");
       // navigate("/my-orders");
-    }, 20000);
+    }, 10000);
 
     return () => {
       clearTimeout(timer);
