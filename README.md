@@ -39,7 +39,7 @@ Welcome to the **E-Commerce Web App**, a complete **MERN Stack** application des
 ## 🎥 Demo
 
 🚀 Check out the live demo of the app:  
-**[Live Demo](https://ecommerce-app-backend-eosin.vercel.app/)**
+**[Live Demo](https://ecommerce-app-sage-ten.vercel.app/)**
 
 ---
 
