@@ -13,6 +13,7 @@ export const Loginpage = () => {
     register,
     formState: { errors },
     reset,
+    setValue,
     handleSubmit,
   } = useForm();
   const loginUser = async (data) => {
@@ -31,7 +32,10 @@ export const Loginpage = () => {
       console.log("Error registering user axios:", error);
     }
   };
-
+  const testCreds = () => {
+    setValue("email", "test@gmail.com");
+    setValue("password", "1234");
+  };
   return (
     <>
       <div className="min-w-screen min-h-screen bg-white flex items-center justify-center px-5 py-5">
@@ -76,12 +80,11 @@ export const Loginpage = () => {
                     {errors.email && (
                       <p className="text-red-500">{errors.email.message}</p>
                     )}
-                    <p>test user (admin): testuser@gmail.com</p>
                   </div>
                 </div>
 
                 <div className="flex -mx-3">
-                  <div className="w-full px-3 mb-12">
+                  <div className="w-full px-3 mb-10">
                     <InputField
                       id="password"
                       labelName="Password"
@@ -97,7 +100,6 @@ export const Loginpage = () => {
                         required: true,
                       }}
                     />
-                    <p>pass : 1234</p>
                     {errors.password && (
                       <p className="text-red-500">{errors.password.message}</p>
                     )}
@@ -120,9 +122,14 @@ export const Loginpage = () => {
                   </Link>
                 </h1>
               </div>
-              {/* <div className="text-center underline mt-2">
-                <a href="www.google.com"> Forgot password ? </a>
-              </div> */}
+              <div className="mt-5 text-center">
+                <button
+                  onClick={testCreds}
+                  class="ml-3 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline "
+                >
+                  Login as Test user (admin)
+                </button>
+              </div>
             </div>
             <SideImage />
           </div>
